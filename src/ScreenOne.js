@@ -22,7 +22,7 @@ class GooglePlacesInput extends React.Component {
             // types: '(cities)' // default: 'geocode'
           }}
           fetchDetails={true}
-            onPress={(data, details) => { // 'details' is provided when fetchDetails = true
+          onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
               var lat = details.geometry.location.lat.toString();
               var lng = details.geometry.location.lng.toString();
               this.props.fetchDoctors(lat,lng);
@@ -79,6 +79,10 @@ const styles = StyleSheet.create({
 });
   
 export default class ScreenOne extends React.Component {
+    shouldComponentUpdate() {
+      return false;
+    }  
+
     render() {
       return(
         <GooglePlacesInput fetchDoctors={this.props.fetchDoctors}/>
