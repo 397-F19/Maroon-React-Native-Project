@@ -22,7 +22,6 @@ export default class App extends Component {
     // console.log(typeof(response))
     // console.log(response)
     this.setState({ doctorJSON: response });
-    console.log(doctorJSON)
   }
   
   render() {
