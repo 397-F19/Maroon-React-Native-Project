@@ -31,28 +31,3 @@ export default class App extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    // alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  qdTitle: {
-    fontSize: 40,
-    textAlign: 'center',
-    marginTop: 40,
-  },
-  qdDesc: {
-    fontSize: 16,
-    textAlign: 'center',
-    fontStyle: 'italic',
-    margin: 4,
-  },
-  instructions: {
-    textAlign: 'left',
-    color: '#333333',
-    marginTop: 60,
-    margin: 10,
-  },
-});
