@@ -1,49 +1,32 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import ScreenOne from './ScreenOne.js'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
 });
 
+
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {doctorJSON: []};
+
+  }
+
+  fetchJSON = async (lat,long) => {
+    const url = 'https://api.betterdoctor.com/2016-03-01/doctors?location='+ lat + ',' + long + ',100&skip=2&limit=10&user_key=e98def16c263c71592c3c2f74e24097a'
+    const response = await fetch(url).then((response)=> response.json()).then((response)=> response.data);
+    // console.log(typeof(response))
+    // console.log(response)
+    this.setState({ doctorJSON: response });
+  }
+  
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.qdTitle}>QuickDoc</Text>
-        <Text style={styles.qdDesc}>Information on local doctors at your fingertips.</Text>
-        <Text style={styles.instructions}>Please enter your location of interest to get started.</Text>
-        <GooglePlacesAutocomplete
-          placeholder='Enter Location'
-          autoFocus={true}
-          returnKeyType={'default'}
-          fetchDetails={true}
-          query={{
-            key: 'AIzaSyCfjp7ZKwdAFhg773PBrwMinONqf_cGBlU',
-            language: 'en', // language of the results
-            // types: '(cities)' // default: 'geocode'
-          }}
-          styles={{
-            textInputContainer: {
-              backgroundColor: 'rgba(0,0,0,0)',
-              borderTopWidth: 0,
-              borderBottomWidth:0
-            },
-            textInput: {
-              marginLeft: 0,
-              marginRight: 0,
-              height: 38,
-              color: '#5d5d5d',
-              fontSize: 16
-            },
-            predefinedPlacesDescription: {
-              color: '#1faadb'
-            },
-          }}
-          currentLocation={true}
-        />
-      </View>
+      <ScreenOne fetchDoctors={this.fetchJSON} doctorData={this.state.doctorJSON}/>
     );
   }
 }
