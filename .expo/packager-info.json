@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://zh-xqv.anonymous.maroon-react-native-project.exp.direct",
+  "packagerNgrokUrl": "https://packager.zh-xqv.anonymous.maroon-react-native-project.exp.direct",
+  "ngrokPid": 17114
 }
