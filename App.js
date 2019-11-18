@@ -11,7 +11,9 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Text style={styles.qdTitle}>QuickDoc</Text>
+        <Text style={styles.qdDesc}>Information on local doctors at your fingertips.</Text>
+        <Text style={styles.instructions}>Please enter your location of interest to get started.</Text>
         <GooglePlacesAutocomplete
           placeholder='Enter Location'
           autoFocus={true}
@@ -50,17 +52,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
+  qdTitle: {
+    fontSize: 40,
     textAlign: 'center',
-    margin: 10,
+    marginTop: 40,
+  },
+  qdDesc: {
+    fontSize: 16,
+    textAlign: 'center',
+    fontStyle: 'italic',
+    margin: 4,
   },
   instructions: {
-    textAlign: 'center',
+    textAlign: 'left',
     color: '#333333',
-    marginBottom: 5,
+    marginTop: 60,
+    margin: 10,
   },
 });
