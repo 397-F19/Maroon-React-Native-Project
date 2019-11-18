@@ -21,6 +21,12 @@ class GooglePlacesInput extends React.Component {
             language: 'en', // language of the results
             // types: '(cities)' // default: 'geocode'
           }}
+          fetchDetails={true}
+            onPress={(data, details) => { // 'details' is provided when fetchDetails = true
+              var lat = details.geometry.location.lat.toString();
+              var lng = details.geometry.location.lng.toString();
+              this.props.fetchDoctors(lat,lng);
+          }}   
           styles={{
             textInputContainer: {
               backgroundColor: 'rgba(0,0,0,0)',
