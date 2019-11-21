@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-material-ui';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
 
@@ -26,20 +26,22 @@ const classes = StyleSheet.create(theme => ({
     }
   }));
 
-const ScreenTwo = ({doctorData}) => {
+const ScreenTwo = ({doctorData,pagestate}) => {
+
     return(
-        <View>
+        <ScrollView>
         {doctorData.map(doctor =>
           (
-             <Card>
+             <Card key={doctor.profile.first_name + " " + doctor.profile.last_name}>
               <CardImage 
                 source={{uri: doctor.profile.image_url}} 
-                title="Above all i am here"
               />
               <CardContent text={doctor.profile.first_name + " " + doctor.profile.last_name}/>
+              <CardButton title="View Doctor Bio" color="blue" onPress={() => {pagestate.setpage(3)}}></CardButton>
             </Card>
         ))}
-        </View>
+        <Button text="Go Back" color="blue" onPress={() => {pagestate.setpage(1)}}></Button>
+        </ScrollView>
     );
 
 }
