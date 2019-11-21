@@ -39,13 +39,14 @@ const styles = StyleSheet.create({
     },
   });
 
-const ScreenThree = ({page,pagestate}) => {
+const ScreenThree = ({currdoctor,pagestate}) => {
     return(
         <View style={styles.container}>
         <View style={styles.head}>
           <Text style={styles.qdTitle}>QuickDoc</Text>
           <Text style={styles.qdDesc}>Information on local doctors at your fingertips.</Text>
         </View>
+
         </View>
     );
 
