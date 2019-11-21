@@ -27,7 +27,7 @@ const App = () => {
   }
   else if (page == 3){
     return(
-      <ScreenThree pagestate={{page, setpage}} jsonstate={{json, setjson}} settingdoctor = {{doc,setdoc}} reviewstate = {{review, setreview}}/>
+      <ScreenThree pagestate={{page, setpage}} settingdoctor = {{doc,setdoc}} reviewstate = {{review, setreview}}/>
     )
   }
 }
