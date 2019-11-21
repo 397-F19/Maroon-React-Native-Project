@@ -12,7 +12,8 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     
-    this.state = {doctorJSON: []};
+    this.state = {doctorJSON: [],
+                  page: 1};
 
   }
 
@@ -25,9 +26,16 @@ export default class App extends Component {
   }
   
   render() {
-    return (
-      <ScreenOne fetchDoctors={this.fetchJSON} doctorData={this.state.doctorJSON}/>
-    );
+    if (this.state.page == 1) {
+      return (
+        <ScreenOne fetchDoctors={this.fetchJSON} doctorData={this.state.doctorJSON}/>
+      );
+    }
+    // else if (this.state.page == 2) {
+    //   return (
+    //     <ScreenTwo />
+    //   )
+    // }
   }
 }
 

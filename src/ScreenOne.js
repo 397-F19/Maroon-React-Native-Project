@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { Button } from 'react-native-material-ui';
 
 class GooglePlacesInput extends React.Component {
     
     render() {
       
       return (
-        <View style={styles.container}>
-        <Text style={styles.qdTitle}>QuickDoc</Text>
-        <Text style={styles.qdDesc}>Information on local doctors at your fingertips.</Text>
-        <Text style={styles.instructions}>Please enter your location of interest to get started.</Text>
         <GooglePlacesAutocomplete
           placeholder='Enter Location'
           autoFocus={true}
@@ -46,7 +43,6 @@ class GooglePlacesInput extends React.Component {
           }}
           currentLocation={true}
         />
-      </View>
       )
     }
     
@@ -56,7 +52,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    // alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   qdTitle: {
@@ -76,6 +71,9 @@ const styles = StyleSheet.create({
     marginTop: 60,
     margin: 10,
   },
+  button: {
+    marginBottom: 30
+  }
 });
   
 export default class ScreenOne extends React.Component {
@@ -85,7 +83,13 @@ export default class ScreenOne extends React.Component {
 
     render() {
       return(
-        <GooglePlacesInput fetchDoctors={this.props.fetchDoctors}/>
+        <View style={styles.container}>
+          <Text style={styles.qdTitle}>QuickDoc</Text>
+          <Text style={styles.qdDesc}>Information on local doctors at your fingertips.</Text>
+          <Text style={styles.instructions}>Please enter your location of interest to get started.</Text>
+          <GooglePlacesInput fetchDoctors={this.props.fetchDoctors}/>
+          <Button text="Submit" style={styles.button}/>
+        </View>
       );
     }
 }
