@@ -78,7 +78,7 @@ const ScreenTwo = ({doctorData,pagestate,settingdoctor }) => {
                 source={{uri: doctor.profile.image_url}} 
               />
               <CardContent text={doctor.profile.first_name + " " + doctor.profile.last_name}/>
-              <CardButton title="View Doctor Bio" color="blue" onPress={function(event) {settingdoctor.setdoc(doctor);pagestate.setpage(3)}}></CardButton>
+              <CardButton title="View Doctor Bio" color="blue" onPress={function(event) {console.log(doctor);pagestate.setpage(3);settingdoctor.setdoc(doctor);}}></CardButton>
             </Card>
         ))}
         <Button text="Go Back" color="blue" onPress={() => {pagestate.setpage(1)}}></Button>

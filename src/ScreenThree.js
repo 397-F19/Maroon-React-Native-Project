@@ -34,32 +34,31 @@ const ScreenThree = ({pagestate,settingdoctor,reviewstate}) => {
     <Card>
       <CardImage 
         source={{uri:settingdoctor.doc.profile.image_url}} 
-        title="Above all i am here"
       />
       <CardContent text={settingdoctor.doc.profile.first_name + " " + settingdoctor.doc.profile.last_name}/>
     </Card>
 
-    <Text>
+    <Card>
       <Text style={{fontSize: 18, fontStyle: 'italic', marginBottom: 10}}>Biography</Text>
       <Divider/>
       {settingdoctor.doc.profile.bio}
-    </Text>
+    </Card>
 
-    <Text style={{marginTop:60}}>
+    <Card style={{marginTop:60}}>
       <Text style={{fontSize: 18, fontStyle: 'italic', marginBottom: 10}}>Practices</Text>
       <Divider/>
       {Array.from(practicesSet).map(practices =>
       <Text>{practices}</Text>
       )}
-    </Text>
+    </Card>
     
-    <Text style={{marginTop:60}}>
+    <Card style={{marginTop:60}}>
       <Text style={{fontSize: 18, fontStyle: 'italic', marginBottom: 10}}>Insurance Plans Taken</Text>
       <Divider/>
       {Array.from(insuranceSet).map(insurance =>
       <Text>{insurance}</Text>
       )}
-    </Text>
+    </Card>
 
     <Button style={{margin: 40, float:'right'}} onPress={function(event){pagestate.setpage(2)}}>go back</Button>
 
