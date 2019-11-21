@@ -1,10 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
-class GooglePlacesInput extends React.Component {
+const GooglePlacesInput = ({jsonstate}) => {
     
-    render() {
+    const fetchJSON = async (lat,long) => {
+      console.log(jsonstate.json)
+      const url = 'https://api.betterdoctor.com/2016-03-01/doctors?location='+ lat + ',' + long + ',100&skip=2&limit=10&user_key=e98def16c263c71592c3c2f74e24097a'
+      const response = await fetch(url).then((response)=> response.json()).then((response)=> response.data);
+      jsonstate.setjson(response);
+      console.log(jsonstate.json)
+    }
       
       return (
         <View style={styles.container}>
@@ -25,7 +31,7 @@ class GooglePlacesInput extends React.Component {
           onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
               var lat = details.geometry.location.lat.toString();
               var lng = details.geometry.location.lng.toString();
-              this.props.fetchDoctors(lat,lng);
+              fetchJSON(lat,lng);
           }}   
           styles={{
             textInputContainer: {
@@ -48,8 +54,6 @@ class GooglePlacesInput extends React.Component {
         />
       </View>
       )
-    }
-    
 }
 
 const styles = StyleSheet.create({
@@ -78,14 +82,9 @@ const styles = StyleSheet.create({
   },
 });
   
-export default class ScreenOne extends React.Component {
-    shouldComponentUpdate() {
-      return false;
-    }  
+export default ScreenOne = ({jsonstate}) => {
 
-    render() {
       return(
-        <GooglePlacesInput fetchDoctors={this.props.fetchDoctors}/>
+        <GooglePlacesInput jsonstate={jsonstate}/>
       );
-    }
 }
