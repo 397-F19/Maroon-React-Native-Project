@@ -38,7 +38,7 @@ const ScreenThree = ({pagestate,settingdoctor,reviewstate}) => {
       />
       <CardContent text={settingdoctor.doc.profile.first_name + " " + settingdoctor.doc.profile.last_name}/>
     </Card>
-    
+
     <Text>
       <Text style={{fontSize: 18, fontStyle: 'italic', marginBottom: 10}}>Biography</Text>
       <Divider/>
@@ -64,19 +64,8 @@ const ScreenThree = ({pagestate,settingdoctor,reviewstate}) => {
     <Button style={{margin: 40, float:'right'}} onPress={function(event){pagestate.setpage(2)}}>go back</Button>
 
     </View>
-  )
-    
-    return(
-    <View style={styles.container}>
-        <Text>This is ScreenThree</Text>
-        <Button 
-            title="Review the doctor" 
-            onPress={handleClickOpen}
-        />
-    </View>
-    )
-    
-  }
+  )  
+}
 
 
   export default ScreenThree;

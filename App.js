@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect} from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import ScreenOne from './src/ScreenOne.js';
+import ScreenTwo from './src/ScreenTwo.js';
 import ScreenThree from './src/ScreenThree.js';
 
 const instructions = Platform.select({
@@ -10,7 +11,7 @@ const instructions = Platform.select({
 
 const App = () => {
   const [json, setjson] = useState([])
-  const [page, setpage] = useState(3)
+  const [page, setpage] = useState(1)
   const [review, setreview] = React.useState({});
   const [doc,setdoc] = React.useState('');
   if (page == 1)
@@ -18,6 +19,11 @@ const App = () => {
     return(
       <ScreenOne jsonstate={{json, setjson}} pagestate={{page, setpage}}/>
     )
+  }
+  else if (page == 2){
+    return(
+      <ScreenTwo doctorData={json}/>
+  )
   }
   else if (page == 3){
     return(
