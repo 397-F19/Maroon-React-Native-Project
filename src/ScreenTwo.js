@@ -26,28 +26,35 @@ const useStyles = StyleSheet.create({
       }
   });
 
-const classes = StyleSheet.create(theme => ({
-    grid: {
-      marginLeft: 250,
-      marginTop: 75,
-      paddingLeft: 60,
-    },
-    card:{
-      display:"flex",
+const cardStyling = StyleSheet.create({
+    cardContainer: {
+      margin: 40,
       justifyContent: 'center',
+      alignContent: 'center',
       alignItems: 'center',
-      flexDirection: 'column',
-      width: 450,
-      height: 250,
-      paddingTop: 20,
+      textAlign: 'center',
     },
-    content:{
-      display:"flex",
+    cardImage: {
+      backgroundColor: '#FFFFFF'
+    },
+    cardName: {
       justifyContent: 'center',
+      alignContent: 'center',
       alignItems: 'center',
-      flexDirection: 'column',
-    }
-  }));
+      fontSize: 20,
+      fontWeight: 'bold',
+      padding: 10,
+      textAlign: 'center'
+    },
+    moreButton: {
+      backgroundColor: 'rgba(87, 137, 255, 100)',
+      justifyContent: 'center',
+      alignContent: 'center',
+      alignItems: 'center',
+      paddingLeft: 80,
+      paddingRight: 90,
+    },
+  });
 
 const ScreenTwo = ({doctorData,pagestate}) => {
     const [open, setOpen] = React.useState(false);
@@ -73,12 +80,13 @@ const ScreenTwo = ({doctorData,pagestate}) => {
         /> */}
         {doctorData.map(doctor =>
           (
-             <Card key={doctor.profile.first_name + " " + doctor.profile.last_name}>
-              <CardImage 
+             <Card style={cardStyling.cardContainer} key={doctor.profile.first_name + " " + doctor.profile.last_name}>
+              <CardImage resizeMode={'contain'} style={cardStyling.cardImage}
                 source={{uri: doctor.profile.image_url}} 
               />
-              <CardContent text={doctor.profile.first_name + " " + doctor.profile.last_name}/>
-              <CardButton title="View Doctor Bio" color="blue" onPress={() => {pagestate.setpage(3)}}></CardButton>
+              {/* <CardContent  text={doctor.profile.first_name + " " + doctor.profile.last_name}/> */}
+              <Text style={cardStyling.cardName}>Dr. {doctor.profile.first_name + " " + doctor.profile.last_name}</Text>
+              <CardButton title="View Doctor Bio" color="white" resizeMode={'stretch'} style={cardStyling.moreButton} onPress={() => {pagestate.setpage(3)}}></CardButton>
             </Card>
         ))}
         <Button text="Go Back" color="blue" onPress={() => {pagestate.setpage(1)}}></Button>
