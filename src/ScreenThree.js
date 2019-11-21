@@ -41,7 +41,7 @@ const ScreenThree = ({pagestate,settingdoctor,reviewstate}) => {
     <Card>
       <Text style={{fontSize: 18, fontStyle: 'italic', marginBottom: 10}}>Biography</Text>
       <Divider/>
-      {settingdoctor.doc.profile.bio}
+      <Text>{settingdoctor.doc.profile.bio} </Text>
     </Card>
 
     <Card style={{marginTop:60}}>
