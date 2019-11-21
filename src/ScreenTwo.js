@@ -26,7 +26,7 @@ const classes = StyleSheet.create(theme => ({
     }
   }));
 
-const ScreenTwo = ({doctorData}) => {
+const ScreenTwo = ({doctorData, pagestate, settingdoctor}) => {
     return(
         <View>
         {doctorData.map(doctor =>
@@ -37,7 +37,11 @@ const ScreenTwo = ({doctorData}) => {
                 title="Above all i am here"
               />
               <CardContent text={doctor.profile.first_name + " " + doctor.profile.last_name}/>
-            </Card>
+              <Button 
+                onPress={function(event){settingdoctor.setdoc(doctor);pagestate.setpage(3)}}
+                text="View Doctor's bio"
+              />
+              </Card>
         ))}
         </View>
     );

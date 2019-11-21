@@ -22,7 +22,7 @@ const App = () => {
   }
   else if (page == 2){
     return(
-      <ScreenTwo doctorData={json}/>
+      <ScreenTwo doctorData={json} pagestate={{page, setpage}} settingdoctor = {{doc,setdoc}}/>
   )
   }
   else if (page == 3){
