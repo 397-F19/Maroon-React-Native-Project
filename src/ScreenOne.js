@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { Button } from 'react-native-material-ui';
 
 const GooglePlacesInput = ({jsonstate}) => {
     
@@ -9,14 +10,10 @@ const GooglePlacesInput = ({jsonstate}) => {
       const url = 'https://api.betterdoctor.com/2016-03-01/doctors?location='+ lat + ',' + long + ',100&skip=2&limit=10&user_key=e98def16c263c71592c3c2f74e24097a'
       const response = await fetch(url).then((response)=> response.json()).then((response)=> response.data);
       jsonstate.setjson(response);
-      console.log(jsonstate.json)
+      // console.log(jsonstate.json)
     }
       
       return (
-        <View style={styles.container}>
-        <Text style={styles.qdTitle}>QuickDoc</Text>
-        <Text style={styles.qdDesc}>Information on local doctors at your fingertips.</Text>
-        <Text style={styles.instructions}>Please enter your location of interest to get started.</Text>
         <GooglePlacesAutocomplete
           placeholder='Enter Location'
           autoFocus={true}
@@ -52,7 +49,6 @@ const GooglePlacesInput = ({jsonstate}) => {
           }}
           currentLocation={true}
         />
-      </View>
       )
 }
 
@@ -60,7 +56,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    // alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   qdTitle: {
@@ -80,11 +75,22 @@ const styles = StyleSheet.create({
     marginTop: 60,
     margin: 10,
   },
+  button: {
+    marginBottom: 30
+  }
 });
   
-export default ScreenOne = ({jsonstate}) => {
-
+export default ScreenOne = ({jsonstate, pagestate}) => {
+  const switch_page = () => {
+    pagestate.setpage(2)
+  }
       return(
-        <GooglePlacesInput jsonstate={jsonstate}/>
+        <View style={styles.container}>
+          <Text style={styles.qdTitle}>QuickDoc</Text>
+          <Text style={styles.qdDesc}>Information on local doctors at your fingertips.</Text>
+          <Text style={styles.instructions}>Please enter your location of interest to get started.</Text>
+          <GooglePlacesInput jsonstate={jsonstate}/>
+          <Button text="Submit" style={styles.button} onPress={switch_page}/>
+        </View>
       );
 }
