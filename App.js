@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import ScreenOne from './src/ScreenOne.js'
+import ScreenOne from './src/ScreenOne.js';
+import ScreenTwo from './src/ScreenTwo.js';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -13,8 +14,12 @@ export default class App extends Component {
     super(props);
     
     this.state = {doctorJSON: [],
-                  page: 1};
+                  screen: 1};
 
+  }
+
+  changeScreen = () => {
+    this.setState({ screen: this.state.screen + 1 });
   }
 
   fetchJSON = async (lat,long) => {
@@ -26,16 +31,16 @@ export default class App extends Component {
   }
   
   render() {
-    if (this.state.page == 1) {
+    if (this.state.screen == 1) {
       return (
-        <ScreenOne fetchDoctors={this.fetchJSON} doctorData={this.state.doctorJSON}/>
+        <ScreenOne fetchDoctors={this.fetchJSON} screenState={this.state.screen} changeScreen={this.changeScreen}/>
       );
     }
-    // else if (this.state.page == 2) {
-    //   return (
-    //     <ScreenTwo />
-    //   )
-    // }
+    else if (this.state.screen == 2) {
+      return (
+        <ScreenTwo doctorData={this.state.doctorJSON}/>
+      )
+    }
   }
 }
 

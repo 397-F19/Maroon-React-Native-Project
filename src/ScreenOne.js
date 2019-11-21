@@ -88,7 +88,7 @@ export default class ScreenOne extends React.Component {
           <Text style={styles.qdDesc}>Information on local doctors at your fingertips.</Text>
           <Text style={styles.instructions}>Please enter your location of interest to get started.</Text>
           <GooglePlacesInput fetchDoctors={this.props.fetchDoctors}/>
-          <Button text="Submit" style={styles.button}/>
+          <Button text="Submit" style={styles.button} onPress={this.props.changeScreen}/>
         </View>
       );
     }
