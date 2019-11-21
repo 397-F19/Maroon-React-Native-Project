@@ -52,28 +52,37 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#FFFFFF',
+  },
+  head: {
+    backgroundColor: 'rgba(87, 137, 255, 100)',
   },
   qdTitle: {
     fontSize: 40,
     textAlign: 'center',
-    marginTop: 40,
+    paddingTop: 40,
+    paddingBottom: 6,
+    color: '#FFFFFF'
   },
   qdDesc: {
     fontSize: 16,
     textAlign: 'center',
     fontStyle: 'italic',
-    margin: 4,
+    margin: 5,
+    color: '#FFFFFF',
+    paddingBottom: 6,
   },
   instructions: {
     textAlign: 'left',
-    color: '#333333',
-    marginTop: 60,
+    color: '#455680',
+    marginTop: 50,
     margin: 10,
+    fontSize: 16,
   },
   button: {
-    marginBottom: 30
-  }
+    fontSize: 20,
+    color: '#455680',
+  },
 });
   
 export default class ScreenOne extends React.Component {
@@ -84,11 +93,13 @@ export default class ScreenOne extends React.Component {
     render() {
       return(
         <View style={styles.container}>
+        <View style={styles.head}>
           <Text style={styles.qdTitle}>QuickDoc</Text>
           <Text style={styles.qdDesc}>Information on local doctors at your fingertips.</Text>
+        </View>
           <Text style={styles.instructions}>Please enter your location of interest to get started.</Text>
           <GooglePlacesInput fetchDoctors={this.props.fetchDoctors}/>
-          <Button text="Submit" style={styles.button}/>
+          <Button style={{ text: styles.button}} text="Submit"/>
         </View>
       );
     }
