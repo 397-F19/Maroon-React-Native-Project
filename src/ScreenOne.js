@@ -6,25 +6,25 @@ import { Button } from 'react-native-material-ui';
 const GooglePlacesInput = ({jsonstate}) => {
     
     const fetchJSON = async (lat,long) => {
-      console.log(jsonstate.json)
       const url = 'https://api.betterdoctor.com/2016-03-01/doctors?location='+ lat + ',' + long + ',100&skip=2&limit=10&user_key=e98def16c263c71592c3c2f74e24097a'
       const response = await fetch(url).then((response)=> response.json()).then((response)=> response.data);
       jsonstate.setjson(response);
-      // console.log(jsonstate.json)
     }
       
       return (
         <GooglePlacesAutocomplete
           placeholder='Enter Location'
-          autoFocus={true}
-          returnKeyType={'default'}
+          autoFocus={false}
+          listViewDisplayed='false'
+          // returnKeyType={'default'}
           fetchDetails={true}
+          types={[]}
           query={{
             key: 'AIzaSyCfjp7ZKwdAFhg773PBrwMinONqf_cGBlU',
             language: 'en', // language of the results
             // types: '(cities)' // default: 'geocode'
           }}
-          fetchDetails={true}
+          // fetchDetails={true}
           onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
               var lat = details.geometry.location.lat.toString();
               var lng = details.geometry.location.lng.toString();
