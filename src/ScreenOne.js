@@ -99,7 +99,7 @@ export default class ScreenOne extends React.Component {
         </View>
           <Text style={styles.instructions}>Please enter your location of interest to get started.</Text>
           <GooglePlacesInput fetchDoctors={this.props.fetchDoctors}/>
-          <Button style={{ text: styles.button}} text="Submit"/>
+          <Button style={{ text: styles.button}} text="Submit" onPress={this.props.changeScreen}/>
         </View>
       );
     }
