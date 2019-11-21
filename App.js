@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import ScreenOne from './src/ScreenOne.js'
+import ScreenThree from './src/ScreenThree.js'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -13,6 +14,7 @@ export default class App extends Component {
     super(props);
     
     this.state = {doctorJSON: []};
+    this.pageState = 3;
 
   }
 
@@ -25,9 +27,16 @@ export default class App extends Component {
   }
   
   render() {
+    if (this.pageState==1){
     return (
       <ScreenOne fetchDoctors={this.fetchJSON} doctorData={this.state.doctorJSON}/>
     );
+  }
+    else if(this.pageState==3){
+      return(
+        <ScreenThree/>
+      )
+    }
   }
 }
 
