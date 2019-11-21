@@ -34,7 +34,7 @@ export default class App extends Component {
   }
     else if(this.pageState==3){
       return(
-        <ScreenThree/>
+        <ScreenThree />
       )
     }
   }
