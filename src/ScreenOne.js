@@ -1,11 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { Button } from 'react-native-material-ui';
 
-class GooglePlacesInput extends React.Component {
+const GooglePlacesInput = ({jsonstate}) => {
     
-    render() {
+    const fetchJSON = async (lat,long) => {
+      console.log(jsonstate.json)
+      const url = 'https://api.betterdoctor.com/2016-03-01/doctors?location='+ lat + ',' + long + ',100&skip=2&limit=10&user_key=e98def16c263c71592c3c2f74e24097a'
+      const response = await fetch(url).then((response)=> response.json()).then((response)=> response.data);
+      jsonstate.setjson(response);
+      // console.log(jsonstate.json)
+    }
       
       return (
         <GooglePlacesAutocomplete
@@ -22,7 +28,7 @@ class GooglePlacesInput extends React.Component {
           onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
               var lat = details.geometry.location.lat.toString();
               var lng = details.geometry.location.lng.toString();
-              this.props.fetchDoctors(lat,lng);
+              fetchJSON(lat,lng);
           }}   
           styles={{
             textInputContainer: {
@@ -44,52 +50,58 @@ class GooglePlacesInput extends React.Component {
           currentLocation={true}
         />
       )
-    }
-    
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#FFFFFF',
+  },
+  head: {
+    backgroundColor: 'rgba(87, 137, 255, 100)',
   },
   qdTitle: {
     fontSize: 40,
     textAlign: 'center',
-    marginTop: 40,
+    paddingTop: 40,
+    paddingBottom: 6,
+    color: '#FFFFFF'
   },
   qdDesc: {
     fontSize: 16,
     textAlign: 'center',
     fontStyle: 'italic',
-    margin: 4,
+    margin: 5,
+    color: '#FFFFFF',
+    paddingBottom: 6,
   },
   instructions: {
     textAlign: 'left',
-    color: '#333333',
-    marginTop: 60,
+    color: '#455680',
+    marginTop: 50,
     margin: 10,
+    fontSize: 16,
   },
   button: {
-    marginBottom: 30
-  }
+    fontSize: 20,
+    color: '#455680',
+  },
 });
   
-export default class ScreenOne extends React.Component {
-    shouldComponentUpdate() {
-      return false;
-    }  
-
-    render() {
+export default ScreenOne = ({jsonstate, pagestate}) => {
+  const switch_page = () => {
+    pagestate.setpage(2)
+  }
       return(
         <View style={styles.container}>
+        <View style={styles.head}>
           <Text style={styles.qdTitle}>QuickDoc</Text>
           <Text style={styles.qdDesc}>Information on local doctors at your fingertips.</Text>
+        </View>
           <Text style={styles.instructions}>Please enter your location of interest to get started.</Text>
-          <GooglePlacesInput fetchDoctors={this.props.fetchDoctors}/>
-          <Button text="Submit" style={styles.button} onPress={this.props.changeScreen}/>
+          <GooglePlacesInput jsonstate={jsonstate}/>
+          <Button style={{ text: styles.button}} text="Submit" onPress={switch_page}/>
         </View>
       );
-    }
 }

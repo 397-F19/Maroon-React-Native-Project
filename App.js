@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect} from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import ScreenOne from './src/ScreenOne.js';
 import ScreenTwo from './src/ScreenTwo.js';
@@ -8,39 +8,20 @@ const instructions = Platform.select({
   android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
 });
 
-
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = {doctorJSON: [],
-                  screen: 1};
-
+const App = () => {
+  const [json, setjson] = useState([])
+  const [page, setpage] = useState(1)
+  if (page == 1)
+  {
+    return(
+      <ScreenOne jsonstate={{json, setjson}} pagestate={{page, setpage}}/>
+    )
   }
-
-  changeScreen = () => {
-    this.setState({ screen: this.state.screen + 1 });
-  }
-
-  fetchJSON = async (lat,long) => {
-    const url = 'https://api.betterdoctor.com/2016-03-01/doctors?location='+ lat + ',' + long + ',100&skip=2&limit=10&user_key=e98def16c263c71592c3c2f74e24097a'
-    const response = await fetch(url).then((response)=> response.json()).then((response)=> response.data);
-    // console.log(typeof(response))
-    // console.log(response)
-    this.setState({ doctorJSON: response });
-  }
-  
-  render() {
-    if (this.state.screen == 1) {
-      return (
-        <ScreenOne fetchDoctors={this.fetchJSON} screenState={this.state.screen} changeScreen={this.changeScreen}/>
-      );
-    }
-    else if (this.state.screen == 2) {
-      return (
-        <ScreenTwo doctorData={this.state.doctorJSON}/>
-      )
-    }
+  else if (page == 2){
+    return(
+      <ScreenTwo doctorData={json}/>
+    )
   }
 }
 
+export default App;
