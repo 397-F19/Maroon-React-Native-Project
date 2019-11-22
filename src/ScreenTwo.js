@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Drawer, Avatar } from 'react-native-material-ui';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
+import ModalDropdown from 'react-native-modal-dropdown';
 // import { Dropdown } from 'react-native-material-dropdown';
 // import {Drawer} from 'react-native-drawer';
 
@@ -94,13 +95,13 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
     //   }
 
     const [spec, setSpec] = React.useState([]);
-    const handleSpecChange = event => {
-        setSpec(event.target.value);
+    const handleSpecChange = (index,value) => {
+        setSpec(value);
     };
 
     const [insu, setInsu] = React.useState([]);
-    const handleInsuChange = event => {
-        setInsu(event.target.value);
+    const handleInsuChange = (index, value) => {
+        setInsu(value);
     };
     const getSpecList =() =>{
         var specialties = doctorData.map(doctor=>(doctor.specialties));
@@ -166,6 +167,22 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
         
     }
 
+    const DoctorCards = ({doctorData, settingdoctor, pagestate}) => {
+
+        return(
+            doctorData.map(doctor =>
+          (
+            <Card style={cardStyling.cardContainer} key={doctor.profile.first_name + " " + doctor.profile.last_name}>
+            <CardImage resizeMode={'contain'} style={cardStyling.cardImage}
+              source={{uri: doctor.profile.image_url}} 
+            />
+            <Text style={cardStyling.cardName}>Dr. {doctor.profile.first_name + " " + doctor.profile.last_name}</Text>
+            <CardButton title="View Doctor Bio" color="white" resizeMode={'stretch'} style={cardStyling.moreButton} onPress={function(event){pagestate.setpage(3);settingdoctor.setdoc(doctor);}}></CardButton>
+          </Card>
+        ))
+        )
+    }
+
     if (doctorData.length === 0){
         return (
             <View>
@@ -173,8 +190,6 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
             </View>
         )
     }
-
-    console.log(specialties_list)
     return(
         <ScrollView>
         <View style={useStyles.head}>
@@ -182,42 +197,18 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
           <Text style={useStyles.qdDesc}>Information on local doctors at your fingertips.</Text>
           {/* <Button text="Filter" onPress={handleDrawerOpen}/> */}
         </View>
-        <Drawer>
-        <Drawer.Section
-            title="Specialties"
-            items={specialties_list.map(specialty =>(
-                {value: specialty, onPress: handleSpecChange, active: false}
-            ))}
-        />
-        <Drawer.Section
+        <ModalDropdown
+            options={specialties_list}
+            style={{color:'#F5F5F5', marginLeft:10, fontSize:20, marginTop: 10}}
+            onSelect={handleSpecChange}
+          />
+        <ModalDropdown
+            options={insurance_list}
+            style={{color:'#F5F5F5', marginLeft:10,fontSize:20, marginTop: 10}}
+            onSelect={handleInsuChange}
+          />
 
-            title="Insurance"
-            items={insurance_list.map(insurance =>(
-                {value: insurance, onPress: handleInsuChange}
-            ))}
-        />
-      </Drawer>
-        {/* <Drawer
-        //    className={useStyles.drawer}
-            variant="persistent"
-            anchor="left"
-            open={open}
-            tapToClose={true}
-            classes={{
-          //  paper: useStyles.drawerPaper,
-            }}
-        /> */}
-        {doctorData.map(doctor =>
-          (
-            <Card style={cardStyling.cardContainer} key={doctor.profile.first_name + " " + doctor.profile.last_name}>
-            <CardImage resizeMode={'contain'} style={cardStyling.cardImage}
-              source={{uri: doctor.profile.image_url}} 
-            />
-            {/* <CardContent  text={doctor.profile.first_name + " " + doctor.profile.last_name}/> */}
-            <Text style={cardStyling.cardName}>Dr. {doctor.profile.first_name + " " + doctor.profile.last_name}</Text>
-            <CardButton title="View Doctor Bio" color="white" resizeMode={'stretch'} style={cardStyling.moreButton} onPress={function(event){pagestate.setpage(3);settingdoctor.setdoc(doctor);}}></CardButton>
-          </Card>
-        ))}
+        <DoctorCards doctorData={doctorSelector()} settingdoctor = {settingdoctor} pagestate ={pagestate} />
         <Button text="Go Back" color="blue" onPress={function(event){pagestate.setpage(1)}}></Button>
         </ScrollView>
     );
