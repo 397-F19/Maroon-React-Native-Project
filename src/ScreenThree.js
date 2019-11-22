@@ -118,6 +118,7 @@ return (
       <Text style={styles.qdTitle}>QuickDoc</Text>
     </View>
     <ScrollView>
+  
   <View style={docInfoStyles.cardContainer}>
     <CardImage resizeMode={'contain'} style={docInfoStyles.cardImage}
       source={{uri:settingdoctor.doc.profile.image_url}} 
@@ -144,6 +145,7 @@ return (
     <Text style={docInfoStyles.secEnd}/>
 
   <CardButton color="white" resizeMode={'contain'} style={docInfoStyles.backButton} onPress={function(event){pagestate.setpage(2)}} title="Back"></CardButton>
+
   </ScrollView>
   </View>
 )  
