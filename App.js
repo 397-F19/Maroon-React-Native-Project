@@ -10,23 +10,28 @@ const instructions = Platform.select({
 });
 
 const App = () => {
-  const [json, setjson] = useState([]);
-  const [page, setpage] = useState(1);
+  const [json, setjson] = useState([])
+  const [page, setpage] = useState(1)
   const [doc, setdoc] = useState('');
+  const [review, setreview] = React.useState({});
+
   if (page == 1)
   {
+    console.log(page)
     return(
       <ScreenOne jsonstate={{json, setjson}} pagestate={{page, setpage}}/>
     )
   }
   else if (page == 2){
+    console.log(page)
     return(
-      <ScreenTwo doctorData={json} pagestate={{page,setpage}}/>
+      <ScreenTwo jsonstate={{json, setjson}} pagestate={{page, setpage}} settingdoctor={{doc,setdoc}}/>
     )
   }
-  else if (page == 3){
+  else{
+    console.log(page)
     return (
-      <ScreenThree currdoctor={{doc,setdoc}} pagestate={{page,setpage}}/>
+      <ScreenThree pagestate={{page,setpage}} settingdoctor={{doc,setdoc}} reviewstate = {{review, setreview}}/>
     )
   }
 }
