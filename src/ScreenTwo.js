@@ -48,6 +48,35 @@ const classes = StyleSheet.create(theme => ({
       flexDirection: 'column',
     }
   }));
+  const cardStyling = StyleSheet.create({
+    cardContainer: {
+      margin: 40,
+      justifyContent: 'center',
+      alignContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center',
+    },
+    cardImage: {
+      backgroundColor: '#FFFFFF'
+    },
+    cardName: {
+      justifyContent: 'center',
+      alignContent: 'center',
+      alignItems: 'center',
+      fontSize: 20,
+      fontWeight: 'bold',
+      padding: 10,
+      textAlign: 'center'
+    },
+    moreButton: {
+      backgroundColor: 'rgba(87, 137, 255, 100)',
+      justifyContent: 'center',
+      alignContent: 'center',
+      alignItems: 'center',
+      paddingLeft: 80,
+      paddingRight: 90,
+    },
+  });
 
 const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
     const [open, setOpen] = React.useState(false);
@@ -64,7 +93,7 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
         <View style={useStyles.head}>
           <Text style={useStyles.qdTitle}>QuickDoc</Text>
           <Text style={useStyles.qdDesc}>Information on local doctors at your fingertips.</Text>
-          <Button text="Filter" onPress={handleDrawerOpen}/>
+          {/* <Button text="Filter" onPress={handleDrawerOpen}/> */}
         </View>
         {/* <Drawer
         //    className={useStyles.drawer}
@@ -78,13 +107,14 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
         /> */}
         {doctorData.map(doctor =>
           (
-             <Card key={doctor.profile.first_name + " " + doctor.profile.last_name}>
-              <CardImage 
-                source={{uri: doctor.profile.image_url}} 
-              />
-              <CardContent text={doctor.profile.first_name + " " + doctor.profile.last_name}/>
-              <CardButton title="View Doctor Bio" color="blue" onPress={function(event){pagestate.setpage(3);settingdoctor.setdoc(doctor);}}></CardButton>
-            </Card>
+            <Card style={cardStyling.cardContainer} key={doctor.profile.first_name + " " + doctor.profile.last_name}>
+            <CardImage resizeMode={'contain'} style={cardStyling.cardImage}
+              source={{uri: doctor.profile.image_url}} 
+            />
+            {/* <CardContent  text={doctor.profile.first_name + " " + doctor.profile.last_name}/> */}
+            <Text style={cardStyling.cardName}>Dr. {doctor.profile.first_name + " " + doctor.profile.last_name}</Text>
+            <CardButton title="View Doctor Bio" color="white" resizeMode={'stretch'} style={cardStyling.moreButton} onPress={function(event){pagestate.setpage(3);settingdoctor.setdoc(doctor);}}></CardButton>
+          </Card>
         ))}
         <Button text="Go Back" color="blue" onPress={function(event){pagestate.setpage(1)}}></Button>
         </ScrollView>
