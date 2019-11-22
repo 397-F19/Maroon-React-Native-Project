@@ -3,7 +3,7 @@ import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Drawer, Avatar } from 'react-native-material-ui';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
 import ModalDropdown from 'react-native-modal-dropdown';
-// import { Dropdown } from 'react-native-material-dropdown';
+ import { Dropdown } from 'react-native-material-dropdown';
 // import {Drawer} from 'react-native-drawer';
 
 const useStyles = StyleSheet.create({
@@ -95,13 +95,13 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
     //   }
 
     const [spec, setSpec] = React.useState([]);
-    const handleSpecChange = (index,value) => {
-        setSpec(value);
+    const handleSpecChange = (value,index,data) => {
+        setSpec([value]);
     };
 
     const [insu, setInsu] = React.useState([]);
-    const handleInsuChange = (index, value) => {
-        setInsu(value);
+    const handleInsuChange = (value,index,data) => {
+        setInsu([value]);
     };
     const getSpecList =() =>{
         var specialties = doctorData.map(doctor=>(doctor.specialties));
@@ -197,15 +197,17 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
           <Text style={useStyles.qdDesc}>Information on local doctors at your fingertips.</Text>
           {/* <Button text="Filter" onPress={handleDrawerOpen}/> */}
         </View>
-        <ModalDropdown
-            options={specialties_list}
-            style={{color:'#F5F5F5', marginLeft:10, fontSize:20, marginTop: 10}}
-            onSelect={handleSpecChange}
+        <Dropdown
+            label="Select Specialty"
+            data={specialties_list.map(speci=>({value:speci}))}
+            style={{color:'#000000', marginLeft:10, fontSize:20, marginTop: 10}}
+            onChangeText={handleSpecChange}
           />
-        <ModalDropdown
-            options={insurance_list}
-            style={{color:'#F5F5F5', marginLeft:10,fontSize:20, marginTop: 10}}
-            onSelect={handleInsuChange}
+        <Dropdown
+            label="Select Insurance"
+            data={insurance_list.map(insur=>({value:insur}))}
+            style={{color:'#000000', marginLeft:10,fontSize:20, marginTop: 10}}
+            onChangeText={handleInsuChange}
           />
 
         <DoctorCards doctorData={doctorSelector()} settingdoctor = {settingdoctor} pagestate ={pagestate} />
