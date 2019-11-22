@@ -9,7 +9,7 @@ const useStyles = StyleSheet.create({
     qdTitle: {
         fontSize: 40,
         textAlign: 'center',
-        paddingTop: 40,
+        paddingTop: 30,
         paddingBottom: 6,
         color: '#FFFFFF'
       },
@@ -50,14 +50,17 @@ const classes = StyleSheet.create(theme => ({
   }));
   const cardStyling = StyleSheet.create({
     cardContainer: {
-      margin: 40,
+      margin: 30,
       justifyContent: 'center',
       alignContent: 'center',
       alignItems: 'center',
       textAlign: 'center',
+      paddingRight: 10
     },
     cardImage: {
-      backgroundColor: '#FFFFFF'
+      backgroundColor: '#FFFFFF',
+      paddingTop: 10,
+      marginBottom: 0,
     },
     cardName: {
       justifyContent: 'center',
@@ -65,7 +68,7 @@ const classes = StyleSheet.create(theme => ({
       alignItems: 'center',
       fontSize: 20,
       fontWeight: 'bold',
-      padding: 10,
+      padding: 6,
       textAlign: 'center'
     },
     moreButton: {
@@ -74,7 +77,8 @@ const classes = StyleSheet.create(theme => ({
       alignContent: 'center',
       alignItems: 'center',
       paddingLeft: 80,
-      paddingRight: 90,
+      paddingRight: 80,
+      marginTop: 10,
     },
   });
 

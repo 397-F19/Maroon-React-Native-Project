@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   qdTitle: {
     fontSize: 40,
     textAlign: 'center',
-    paddingTop: 40,
+    paddingTop: 30,
     paddingBottom: 6,
     color: '#FFFFFF'
   },
