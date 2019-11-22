@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-material-ui';
+import { Button, Drawer, Avatar } from 'react-native-material-ui';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
-// import { Dropdown } from 'react-native-material-dropdown';
+import ModalDropdown from 'react-native-modal-dropdown';
+
+ import { Dropdown } from 'react-native-material-dropdown';
+
 // import {Drawer} from 'react-native-drawer';
 
 const useStyles = StyleSheet.create({
@@ -92,6 +95,102 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
     // const switch_page = ({num}) => {
     //     pagestate.setpage(1)
     //   }
+    const [spec, setSpec] = React.useState([]);
+    const handleSpecChange = (value,index,data) => {
+        setSpec([value]);
+    };
+
+    const [insu, setInsu] = React.useState([]);
+    const handleInsuChange = (value,index,data) => {
+        setInsu([value]);
+    };
+    const getSpecList =() =>{
+        var specialties = doctorData.map(doctor=>(doctor.specialties));
+        var specialtiesSet = new Set();
+        for (var i=0; i<specialties.length; i++){
+            specialties[i].map(specialty=>(specialtiesSet.add(specialty.name)));
+        }
+    
+        
+        return Array.from(specialtiesSet)
+    }
+    const getInsuList =() =>{
+        var insurances= doctorData.map(doctor=>(doctor.insurances));
+        var insuranceSet = new Set();
+        for (var i=0; i<insurances.length;i++){
+            insurances[i].map(insurance=>(insuranceSet.add(insurance.insurance_plan.name)));
+        }
+        
+        return Array.from(insuranceSet)
+    }
+    const specialties_list = getSpecList()
+    const insurance_list = getInsuList()
+
+
+    const matchInsu = (doctor) =>{
+        var flag = 0
+        doctor.insurances.map(insurance=>(insu.includes(insurance.insurance_plan.name) ? flag = 1 : false))
+        if (flag===0){
+            return false
+        }
+        else{
+            return true
+        }
+    }
+    const matchSpec = (doctor) =>{
+        var flag = 0
+        doctor.specialties.map(specialty=>(spec.includes(specialty.name) ? flag = 1 : false))
+        if (flag===0){
+            return false
+        }
+        else{
+            return true
+        }
+        
+    }
+    const doctorSelector = () =>{
+        if (insu.length != 0 && spec.length != 0)
+        {
+            return doctorData.filter(doctor=>matchInsu(doctor)).filter(doctor=>matchSpec(doctor));
+        }
+        else if (insu.length != 0)
+        {
+            return doctorData.filter(doctor=>matchInsu(doctor));
+        }
+        else if (spec.length != 0)
+        {
+            return doctorData.filter(doctor=>matchSpec(doctor));
+        }
+        else
+        {
+            return doctorData;
+        }
+        
+    }
+
+    const DoctorCards = ({doctorData, settingdoctor, pagestate}) => {
+
+        return(
+            doctorData.map(doctor =>
+          (
+            <Card style={cardStyling.cardContainer} key={doctor.profile.first_name + " " + doctor.profile.last_name}>
+            <CardImage resizeMode={'contain'} style={cardStyling.cardImage}
+              source={{uri: doctor.profile.image_url}} 
+            />
+            <Text style={cardStyling.cardName}>Dr. {doctor.profile.first_name + " " + doctor.profile.last_name}</Text>
+            <CardButton title="View Doctor Bio" color="white" resizeMode={'stretch'} style={cardStyling.moreButton} onPress={function(event){pagestate.setpage(3);settingdoctor.setdoc(doctor);}}></CardButton>
+          </Card>
+        ))
+        )
+    }
+
+    if (doctorData.length === 0){
+        return (
+            <View>
+                <Text style={useStyles.qdDesc}>Please choose a legal location from the dropbox</Text>
+            </View>
+        )
+    }
     return(
         <ScrollView>
         <View style={useStyles.head}>
@@ -99,27 +198,20 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
           <Text style={useStyles.qdDesc}>Information on local doctors at your fingertips.</Text>
           {/* <Button text="Filter" onPress={handleDrawerOpen}/> */}
         </View>
-        {/* <Drawer
-        //    className={useStyles.drawer}
-            variant="persistent"
-            anchor="left"
-            open={open}
-            tapToClose={true}
-            classes={{
-          //  paper: useStyles.drawerPaper,
-            }}
-        /> */}
-        {doctorData.map(doctor =>
-          (
-            <Card style={cardStyling.cardContainer} key={doctor.profile.first_name + " " + doctor.profile.last_name}>
-            <CardImage resizeMode={'contain'} style={cardStyling.cardImage}
-              source={{uri: doctor.profile.image_url}} 
-            />
-            {/* <CardContent  text={doctor.profile.first_name + " " + doctor.profile.last_name}/> */}
-            <Text style={cardStyling.cardName}>Dr. {doctor.profile.first_name + " " + doctor.profile.last_name}</Text>
-            <CardButton title="View Doctor Bio" color="white" resizeMode={'stretch'} style={cardStyling.moreButton} onPress={function(event){pagestate.setpage(3);settingdoctor.setdoc(doctor);}}></CardButton>
-          </Card>
-        ))}
+        <Dropdown
+            label="Select Specialty"
+            data={specialties_list.map(speci=>({value:speci}))}
+            style={{color:'#000000', marginLeft:10, fontSize:20, marginTop: 10}}
+            onChangeText={handleSpecChange}
+          />
+        <Dropdown
+            label="Select Insurance"
+            data={insurance_list.map(insur=>({value:insur}))}
+            style={{color:'#000000', marginLeft:10,fontSize:20, marginTop: 10}}
+            onChangeText={handleInsuChange}
+          />
+
+        <DoctorCards doctorData={doctorSelector()} settingdoctor = {settingdoctor} pagestate ={pagestate} />
         <Button text="Go Back" color="blue" onPress={function(event){pagestate.setpage(1)}}></Button>
         </ScrollView>
     );
