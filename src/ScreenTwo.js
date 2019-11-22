@@ -3,7 +3,9 @@ import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Drawer, Avatar } from 'react-native-material-ui';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
 import ModalDropdown from 'react-native-modal-dropdown';
+
  import { Dropdown } from 'react-native-material-dropdown';
+
 // import {Drawer} from 'react-native-drawer';
 
 const useStyles = StyleSheet.create({
@@ -93,7 +95,6 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
     // const switch_page = ({num}) => {
     //     pagestate.setpage(1)
     //   }
-
     const [spec, setSpec] = React.useState([]);
     const handleSpecChange = (value,index,data) => {
         setSpec([value]);
