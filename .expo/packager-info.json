@@ -1,9 +1,10 @@
 {
-  "expoServerPort": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
   "devToolsPort": 19002,
-  "packagerPort": null,
-  "packagerPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 11060,
+  "expoServerNgrokUrl": "https://ds-h3f.anonymous.maroon-react-native-project.exp.direct",
+  "packagerNgrokUrl": "https://packager.ds-h3f.anonymous.maroon-react-native-project.exp.direct",
+  "ngrokPid": 15096,
+  "webpackServerPort": null
 }
