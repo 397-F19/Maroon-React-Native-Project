@@ -3,7 +3,7 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { Button } from 'react-native-material-ui';
 
-const GooglePlacesInput = ({jsonstate}) => {
+const GooglePlacesInput = ({jsonstate, addressState}) => {
     
     const fetchJSON = async (lat,long) => {
       const url = 'https://api.betterdoctor.com/2016-03-01/doctors?location='+ lat + ',' + long + ',100&skip=2&limit=10&user_key=e98def16c263c71592c3c2f74e24097a'
@@ -29,6 +29,9 @@ const GooglePlacesInput = ({jsonstate}) => {
               var lat = details.geometry.location.lat.toString();
               var lng = details.geometry.location.lng.toString();
               fetchJSON(lat,lng);
+              console.log(details);
+              addressState.setaddress(details.name);
+
           }}   
           styles={{
             textInputContainer: {
@@ -89,7 +92,7 @@ const styles = StyleSheet.create({
   },
 });
   
-export default ScreenOne = ({jsonstate, pagestate}) => {
+export default ScreenOne = ({jsonstate, pagestate, addressState}) => {
   const switch_page = () => {
     pagestate.setpage(2)
   }
@@ -100,7 +103,7 @@ export default ScreenOne = ({jsonstate, pagestate}) => {
           <Text style={styles.qdDesc}>Information on local doctors at your fingertips.</Text>
         </View>
           <Text style={styles.instructions}>Please enter your location of interest to get started.</Text>
-          <GooglePlacesInput jsonstate={jsonstate}/>
+          <GooglePlacesInput jsonstate={jsonstate} addressState={addressState}/>
           <Button style={{ text: styles.button}} text="Submit" onPress={switch_page}/>
         </View>
       );

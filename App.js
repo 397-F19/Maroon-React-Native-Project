@@ -14,18 +14,19 @@ const App = () => {
   const [page, setpage] = useState(1)
   const [doc, setdoc] = useState('');
   const [review, setreview] = React.useState({});
+  const [address, setaddress] = useState('');
 
   if (page == 1)
   {
     console.log(page)
     return(
-      <ScreenOne jsonstate={{json, setjson}} pagestate={{page, setpage}}/>
+      <ScreenOne jsonstate={{json, setjson}} pagestate={{page, setpage}} addressState={{address, setaddress}}/>
     )
   }
   else if (page == 2){
     console.log(page)
     return(
-      <ScreenTwo jsonstate={{json, setjson}} pagestate={{page, setpage}} settingdoctor={{doc,setdoc}}/>
+      <ScreenTwo jsonstate={{json, setjson}} pagestate={{page, setpage}} settingdoctor={{doc,setdoc}} address={address}/>
     )
   }
   else{

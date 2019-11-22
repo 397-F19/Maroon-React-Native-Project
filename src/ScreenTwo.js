@@ -3,6 +3,7 @@ import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Drawer, Avatar } from 'react-native-material-ui';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
 import ModalDropdown from 'react-native-modal-dropdown';
+import Divider from 'react-native-divider';
 
  import { Dropdown } from 'react-native-material-dropdown';
 
@@ -26,6 +27,13 @@ const useStyles = StyleSheet.create({
       },
       head: {
         backgroundColor: 'rgba(87, 137, 255, 100)',
+      },
+      addressHeader: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#68686e',
+        marginTop: 10,
+        marginLeft: 7
       }
   });
 
@@ -82,10 +90,10 @@ const classes = StyleSheet.create(theme => ({
       paddingLeft: 80,
       paddingRight: 80,
       marginTop: 10,
-    },
+    }
   });
 
-const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
+const ScreenTwo = ({jsonstate, pagestate, settingdoctor, address}) => {
     const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -198,6 +206,8 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
           <Text style={useStyles.qdDesc}>Information on local doctors at your fingertips.</Text>
           {/* <Button text="Filter" onPress={handleDrawerOpen}/> */}
         </View>
+        <Text style={useStyles.addressHeader}>Doctors near: {address}</Text>
+        <Divider/>
         <Dropdown
             label="Select Specialty"
             data={specialties_list.map(speci=>({value:speci}))}
