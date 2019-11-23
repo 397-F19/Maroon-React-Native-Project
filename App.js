@@ -18,19 +18,16 @@ const App = () => {
 
   if (page == 1)
   {
-    console.log(page)
     return(
       <ScreenOne jsonstate={{json, setjson}} pagestate={{page, setpage}}/>
     )
   }
   else if (page == 2){
-    console.log(page)
     return(
       <ScreenTwo jsonstate={{json, setjson}} pagestate={{page, setpage}} settingdoctor={{doc,setdoc}}/>
     )
   }
   else{
-    console.log(page)
     return (
       <ScreenThree pagestate={{page,setpage}} settingdoctor={{doc,setdoc}} reviewstate = {{review, setreview}}/>
     )

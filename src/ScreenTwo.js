@@ -3,6 +3,7 @@ import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Drawer, Avatar } from 'react-native-material-ui';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
 import ModalDropdown from 'react-native-modal-dropdown';
+import MultiSelect from 'react-native-multiple-select';
 // import { Dropdown } from 'react-native-material-dropdown';
 // import {Drawer} from 'react-native-drawer';
 
@@ -89,19 +90,15 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
       setOpen(true);
     };
     doctorData = jsonstate.json
-    // console.log(doctorData)
-    // const switch_page = ({num}) => {
-    //     pagestate.setpage(1)
-    //   }
 
     const [spec, setSpec] = React.useState([]);
     const handleSpecChange = (index,value) => {
-        setSpec(value);
+        setSpec(index);
     };
 
     const [insu, setInsu] = React.useState([]);
     const handleInsuChange = (index, value) => {
-        setInsu(value);
+        setInsu(index);
     };
     const getSpecList =() =>{
         var specialties = doctorData.map(doctor=>(doctor.specialties));
@@ -110,8 +107,14 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
             specialties[i].map(specialty=>(specialtiesSet.add(specialty.name)));
         }
     
+        var specialties_kypair = [];
+        var specialties_list =  Array.from(specialtiesSet);
+        specialties_list.forEach(function(specialty){
+            specialties_kypair.push({id:specialty, name:specialty})
+        })
+
+        return specialties_kypair
         
-        return Array.from(specialtiesSet)
     }
     const getInsuList =() =>{
         var insurances= doctorData.map(doctor=>(doctor.insurances));
@@ -119,11 +122,16 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
         for (var i=0; i<insurances.length;i++){
             insurances[i].map(insurance=>(insuranceSet.add(insurance.insurance_plan.name)));
         }
-        
-        return Array.from(insuranceSet)
+        var insurances_kvpair = [];
+        var insurances_list = Array.from(insuranceSet);
+        insurances_list.forEach(function(insurance){
+            insurances_kvpair.push({id:insurance, name:insurance})
+        })
+
+        return insurances_kvpair
     }
     const specialties_list = getSpecList()
-    const insurance_list = getInsuList()
+    const insurances_list = getInsuList()
 
 
     const matchInsu = (doctor) =>{
@@ -182,6 +190,7 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
         ))
         )
     }
+    
 
     if (doctorData.length === 0){
         return (
@@ -197,16 +206,43 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
           <Text style={useStyles.qdDesc}>Information on local doctors at your fingertips.</Text>
           {/* <Button text="Filter" onPress={handleDrawerOpen}/> */}
         </View>
-        <ModalDropdown
-            options={specialties_list}
-            style={{color:'#F5F5F5', marginLeft:10, fontSize:20, marginTop: 10}}
-            onSelect={handleSpecChange}
-          />
-        <ModalDropdown
-            options={insurance_list}
-            style={{color:'#F5F5F5', marginLeft:10,fontSize:20, marginTop: 10}}
-            onSelect={handleInsuChange}
-          />
+        <MultiSelect
+            items={specialties_list}
+            uniqueKey="id"
+            onSelectedItemsChange={handleSpecChange}
+            selectedItems={spec}
+            selectText="Pick Specialties"
+            searchInputPlaceholderText="Search Items..."
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#CCC"
+            displayKey="name"
+            selectedItemTextColor="#CCC"
+            selectedItemIconColor="#CCC"
+            itemTextColor="#000"
+            searchInputStyle={{ color: '#CCC' }}
+            submitButtonColor="#CCC"
+            submitButtonText="Submit"
+        />
+
+        <MultiSelect
+            items={insurances_list}
+            uniqueKey="id"
+            onSelectedItemsChange={handleInsuChange}
+            selectedItems={insu}
+            selectText="Pick Insurances"
+            searchInputPlaceholderText="Search Items..."
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#CCC"
+            displayKey="name"
+            selectedItemTextColor="#CCC"
+            selectedItemIconColor="#CCC"
+            itemTextColor="#000"
+            searchInputStyle={{ color: '#CCC' }}
+            submitButtonColor="#CCC"
+            submitButtonText="Submit"
+        />
 
         <DoctorCards doctorData={doctorSelector()} settingdoctor = {settingdoctor} pagestate ={pagestate} />
         <Button text="Go Back" color="blue" onPress={function(event){pagestate.setpage(1)}}></Button>
