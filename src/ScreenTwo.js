@@ -90,7 +90,6 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
       setOpen(true);
     };
     doctorData = jsonstate.json
-
     const [spec, setSpec] = React.useState([]);
     const handleSpecChange = (index,value) => {
         setSpec(index);
