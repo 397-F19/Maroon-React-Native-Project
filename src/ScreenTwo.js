@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Button, Drawer, Avatar } from 'react-native-material-ui';
+import { Button, Avatar } from 'react-native-material-ui';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
 import ModalDropdown from 'react-native-modal-dropdown';
 import MultiSelect from 'react-native-multiple-select';
-// import { Dropdown } from 'react-native-material-dropdown';
-// import {Drawer} from 'react-native-drawer';
+import { Drawer } from 'native-base';
 
 const useStyles = StyleSheet.create({
     qdTitle: {
@@ -15,17 +14,27 @@ const useStyles = StyleSheet.create({
         paddingBottom: 6,
         color: '#FFFFFF'
       },
-      qdDesc: {
+    qdDesc: {
         fontSize: 16,
         textAlign: 'center',
         fontStyle: 'italic',
         margin: 5,
         color: '#FFFFFF',
         paddingBottom: 6,
-      },
-      head: {
+    },
+    head: {
         backgroundColor: 'rgba(87, 137, 255, 100)',
-      }
+    },
+    drawer: {
+        flex: 1,
+        backgroundColor: '#FFFFFF',
+        paddingTop: 30
+    },
+    filter: {
+        paddingLeft: 10,
+        paddingRight: 10,
+        marginTop: 20
+    }
   });
 
 const classes = StyleSheet.create(theme => ({
@@ -83,6 +92,7 @@ const classes = StyleSheet.create(theme => ({
       marginTop: 10,
     },
   });
+
 
 const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
     const [open, setOpen] = React.useState(false);
@@ -190,7 +200,6 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
         )
     }
     
-
     if (doctorData.length === 0){
         return (
             <View>
@@ -198,14 +207,65 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
             </View>
         )
     }
+
+    const SideBar = () => {
+        return(
+            <View style={useStyles.drawer}>
+            <MultiSelect
+            styleDropdownMenu={useStyles.filter}
+            items={specialties_list}
+            uniqueKey="id"
+            onSelectedItemsChange={handleSpecChange}
+            selectedItems={spec}
+            selectText="Pick Specialties"
+            searchInputPlaceholderText="Search Items..."
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#CCC"
+            displayKey="name"
+            selectedItemTextColor="#CCC"
+            selectedItemIconColor="#CCC"
+            itemTextColor="#000"
+            searchInputStyle={{ color: '#CCC' }}
+            submitButtonColor="#CCC"
+            submitButtonText="Submit"
+        />
+    
+            <MultiSelect
+                styleDropdownMenu={useStyles.filter}
+                items={insurances_list}
+                uniqueKey="id"
+                onSelectedItemsChange={handleInsuChange}
+                selectedItems={insu}
+                selectText="Pick Insurances"
+                searchInputPlaceholderText="Search Items..."
+                tagRemoveIconColor="#CCC"
+                tagBorderColor="#CCC"
+                tagTextColor="#CCC"
+                displayKey="name"
+                selectedItemTextColor="#CCC"
+                selectedItemIconColor="#CCC"
+                itemTextColor="#000"
+                searchInputStyle={{ color: '#CCC' }}
+                submitButtonColor="#CCC"
+                submitButtonText="Submit"
+        />
+            </View>
+        );
+    }
+
+    openDrawer = () => { this.drawer._root.open() };
+    closeDrawer = () => { this.drawer._root.close() };
+
     return(
+        <Drawer ref={(ref) => { this.drawer = ref; }} content={<SideBar navigator={this.navigator} />} onClose={() => this.closeDrawer()} >
         <ScrollView>
         <View style={useStyles.head}>
           <Text style={useStyles.qdTitle}>QuickDoc</Text>
           <Text style={useStyles.qdDesc}>Information on local doctors at your fingertips.</Text>
-          {/* <Button text="Filter" onPress={handleDrawerOpen}/> */}
         </View>
-        <MultiSelect
+        <Button text="Filter" onPress={() => this.openDrawer()}/>
+        {/* <MultiSelect
             items={specialties_list}
             uniqueKey="id"
             onSelectedItemsChange={handleSpecChange}
@@ -241,11 +301,12 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
             searchInputStyle={{ color: '#CCC' }}
             submitButtonColor="#CCC"
             submitButtonText="Submit"
-        />
+        /> */}
 
         <DoctorCards doctorData={doctorSelector()} settingdoctor = {settingdoctor} pagestate ={pagestate} />
         <Button text="Go Back" color="blue" onPress={function(event){pagestate.setpage(1)}}></Button>
         </ScrollView>
+        </Drawer>
     );
 
 }
