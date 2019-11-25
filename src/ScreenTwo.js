@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, View, TouchableWithoutFeedback, Dimensions, Image  } from 'react-native';
 import { Button, Drawer, Avatar } from 'react-native-material-ui';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
 import ModalDropdown from 'react-native-modal-dropdown';
-
+import { Block, Text, theme } from "galio-framework";
  import { Dropdown } from 'react-native-material-dropdown';
 
-// import {Drawer} from 'react-native-drawer';
+ const { width } = Dimensions.get('screen');
 
 const useStyles = StyleSheet.create({
     qdTitle: {
