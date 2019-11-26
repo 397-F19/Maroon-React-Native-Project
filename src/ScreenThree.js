@@ -4,7 +4,7 @@ import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 
 import Divider from 'react-native-divider';
 import StarRating from 'react-native-star-rating';
 import Dialog, { DialogFooter, DialogButton, DialogContent } from 'react-native-popup-dialog';
-
+import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
 import db from './db.js';
 
 
@@ -132,14 +132,13 @@ settingdoctor.doc.insurances.map(insurance=>insuranceSet.add(insurance.insurance
 var array_practices = Array.from(practicesSet)
 var array_insurances = Array.from(insuranceSet)
 
-
-// if (Object.keys(reviewstate.review).includes(docname)){
-//   var rating = reviewstate.review[docname]["totalrating"]/reviewstate.review[docname]["totalcount"]
-//   console.log(rating)
-// }
-// else{
-//   console.log("no rating now")
-// }
+const getReviews = (docname) =>{
+  var docReviews = [];
+  if (Object.keys(reviewstate.review).includes(docname)){
+    Object.keys(reviewstate.review[docname]["reviews"]).map((key)=>{docReviews.push(reviewstate.review[docname]["reviews"][key])})
+  }
+  return docReviews;  
+}
 
 return (
   <View style={styles.container}>
@@ -185,7 +184,7 @@ return (
           onPress={() => {setOpenrating(false)}}
         />
         <DialogButton
-          text="OK"
+          text="SUBMIT"
           onPress={() => {submitrating();setOpenrating(false);}}
         />
       </DialogFooter>
@@ -193,12 +192,43 @@ return (
   >
     <DialogContent>
     <StarRating  selectedStar={(rating)=>setratingval(rating)} rating={ratingval}/>
+    <TextField
+        label='write your review'
+        // keyboardType='phone-pad'
+        // formatText={formatText}
+        value={reviewval}
+        onChangeText={(e) => setreviewval(e)}
+      />
     </DialogContent>
   </Dialog>
+
+  <Dialog visible={openreview}>
+    <DialogContent>
+    {getReviews(docname).map((review, i)=>
+    (<View key = {i}>
+    <Text >Review {i + 1}:  {review.review}</Text>
+     <Divider/>
+    </View>
+    ))}
+    </DialogContent>
+    <DialogFooter>
+        <DialogButton
+          text="BACK"
+          onPress={() => {setOpenreview(false)}}
+        />
+      </DialogFooter>
+  </Dialog>
+
   <Button
     title="rate the doctor"
     onPress={() => {
       setOpenrating(true);
+    }}
+  />
+  <Button
+    title="reviews of the doctor"
+    onPress={() => {
+      setOpenreview(true);
     }}
   />
   <CardButton color="white" resizeMode={'contain'} style={docInfoStyles.backButton} onPress={function(event){pagestate.setpage(2)}} title="Back"></CardButton>
