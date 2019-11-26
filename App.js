@@ -33,7 +33,7 @@ const App = () => {
   }
   else if (page == 2){
     return(
-      <ScreenTwo jsonstate={{json, setjson}} pagestate={{page, setpage}} settingdoctor={{doc,setdoc}} addressState={{address, setaddress}}/>
+      <ScreenTwo jsonstate={{json, setjson}} pagestate={{page, setpage}} settingdoctor={{doc,setdoc}} addressState={{address, setaddress}} reviewstate = {{review, setreview}}/>
     )
   }
   else{

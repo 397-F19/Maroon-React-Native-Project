@@ -6,6 +6,8 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import MultiSelect from 'react-native-multiple-select';
 import Divider from 'react-native-divider';
 import { Drawer } from 'native-base';
+import StarRating from 'react-native-star-rating';
+
 
 
 const useStyles = StyleSheet.create({
@@ -103,7 +105,7 @@ const classes = StyleSheet.create(theme => ({
   });
 
 
-const ScreenTwo = ({jsonstate, pagestate, settingdoctor, addressState}) => {
+const ScreenTwo = ({jsonstate, pagestate, settingdoctor, addressState, reviewstate}) => {
     const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -194,15 +196,22 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor, addressState}) => {
     }
 
     const DoctorCards = ({doctorData, settingdoctor, pagestate}) => {
-
+        const getname = (doctor) => {
+            return doctor.profile.first_name + " " + doctor.profile.last_name
+          }
         return(
             doctorData.map(doctor =>
           (
-            <Card style={cardStyling.cardContainer} key={doctor.profile.first_name + " " + doctor.profile.last_name}>
+            <Card style={cardStyling.cardContainer} key={getname(doctor)}>
             <CardImage resizeMode={'contain'} style={cardStyling.cardImage}
               source={{uri: doctor.profile.image_url}} 
             />
-            <Text style={cardStyling.cardName}>Dr. {doctor.profile.first_name + " " + doctor.profile.last_name}</Text>
+            <Text style={cardStyling.cardName}>Dr. {getname(doctor)}</Text>
+            <CardContent>
+            {
+                Object.keys(reviewstate.review).includes(getname(doctor)) ? <StarRating  rating={reviewstate.review[getname(doctor)]["totalrating"]/reviewstate.review[getname(doctor)]["totalcount"]} /> : <Text> No rating </Text>
+            }
+            </CardContent>
             <CardButton title="View Doctor Bio" color="white" resizeMode={'stretch'} style={cardStyling.moreButton} onPress={function(event){pagestate.setpage(3);settingdoctor.setdoc(doctor);}}></CardButton>
           </Card>
         ))

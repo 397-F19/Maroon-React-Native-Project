@@ -2,6 +2,9 @@ import React, { Component, useState, useEffect} from 'react';
 import {Segment, ScrollView, Button, StyleSheet, Text, View ,Image} from 'react-native';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
 import Divider from 'react-native-divider';
+import StarRating from 'react-native-star-rating';
+import Dialog, { DialogFooter, DialogButton, DialogContent } from 'react-native-popup-dialog';
+
 import db from './db.js';
 
 
@@ -93,6 +96,7 @@ const docInfoStyles = StyleSheet.create({
 const ScreenThree = ({pagestate,settingdoctor,reviewstate}) => {
   const [openrating, setOpenrating] = useState(false);
   const [openreview, setOpenreview] = useState(false);
+  const docname = settingdoctor.doc.profile.first_name + " " + settingdoctor.doc.profile.last_name;
   const handleClickOpen = () => {
       setOpenrating(true);
     };
@@ -103,6 +107,23 @@ const ScreenThree = ({pagestate,settingdoctor,reviewstate}) => {
   const handleReviewClick= () =>{
     setOpenreview(!openreview);
   }
+  const [ratingval, setratingval] = React.useState(0);
+  const [reviewval, setreviewval] = React.useState('');
+  const [reviewcomment, setreviewcomment] = React.useState([]);
+  const ratingChanged = (rating) => {
+    setratingval(rating);
+  }
+  const submitrating = () =>{
+    if (Object.keys(reviewstate.review).includes(docname)){
+      db.child(docname).child("reviews").child(reviewstate.review[docname]["totalcount"]+1).set({rating: ratingval, review: reviewval})
+      db.child(docname).update({totalrating: reviewstate.review[docname]["totalrating"]+ratingval, totalcount: reviewstate.review[docname]["totalcount"]+1})
+    }
+    else{
+      db.child(docname).set({totalrating: ratingval, totalcount: 1})
+      db.child(docname).child("reviews").child(1).set({rating: ratingval, review: reviewval})
+    }
+    setOpenrating(false);
+  }
 
 var practicesSet = new Set();
 settingdoctor.doc.practices.map(practices=>practicesSet.add(practices.name));
@@ -111,14 +132,14 @@ settingdoctor.doc.insurances.map(insurance=>insuranceSet.add(insurance.insurance
 var array_practices = Array.from(practicesSet)
 var array_insurances = Array.from(insuranceSet)
 
-const docname = settingdoctor.doc.profile.first_name + " " + settingdoctor.doc.profile.last_name;
-if (Object.keys(reviewstate.review).includes(docname)){
-  var rating = reviewstate.review[docname]["totalrating"]/reviewstate.review[docname]["totalcount"]
-  console.log(rating)
-}
-else{
-  console.log("no rating now")
-}
+
+// if (Object.keys(reviewstate.review).includes(docname)){
+//   var rating = reviewstate.review[docname]["totalrating"]/reviewstate.review[docname]["totalcount"]
+//   console.log(rating)
+// }
+// else{
+//   console.log("no rating now")
+// }
 
 return (
   <View style={styles.container}>
@@ -132,6 +153,9 @@ return (
       source={{uri:settingdoctor.doc.profile.image_url}} 
     />
     <Text style={docInfoStyles.cardName}>Dr. {docname}</Text>
+    {
+      Object.keys(reviewstate.review).includes(docname) ? <StarRating  rating={reviewstate.review[docname]["totalrating"]/reviewstate.review[docname]["totalcount"]} /> : <Text> No rating </Text>
+    }
   </View>
 
     <Text style={docInfoStyles.secTitle}>Biography</Text>
@@ -152,6 +176,31 @@ return (
     )}
     <Text style={docInfoStyles.secEnd}/>
 
+    <Dialog
+    visible={openrating}
+    footer={
+      <DialogFooter>
+        <DialogButton
+          text="CANCEL"
+          onPress={() => {setOpenrating(false)}}
+        />
+        <DialogButton
+          text="OK"
+          onPress={() => {submitrating();setOpenrating(false);}}
+        />
+      </DialogFooter>
+    }
+  >
+    <DialogContent>
+    <StarRating  selectedStar={(rating)=>setratingval(rating)} rating={ratingval}/>
+    </DialogContent>
+  </Dialog>
+  <Button
+    title="rate the doctor"
+    onPress={() => {
+      setOpenrating(true);
+    }}
+  />
   <CardButton color="white" resizeMode={'contain'} style={docInfoStyles.backButton} onPress={function(event){pagestate.setpage(2)}} title="Back"></CardButton>
 
   </ScrollView>
