@@ -4,7 +4,9 @@ import { Button, Avatar } from 'react-native-material-ui';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
 import ModalDropdown from 'react-native-modal-dropdown';
 import MultiSelect from 'react-native-multiple-select';
+import Divider from 'react-native-divider';
 import { Drawer } from 'native-base';
+
 
 const useStyles = StyleSheet.create({
     qdTitle: {
@@ -29,6 +31,13 @@ const useStyles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#FFFFFF',
         paddingTop: 30
+    },
+    addressHeader: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#68686e',
+        marginTop: 10,
+        marginLeft: 7
     },
     filter: {
         paddingLeft: 10,
@@ -94,7 +103,7 @@ const classes = StyleSheet.create(theme => ({
   });
 
 
-const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
+const ScreenTwo = ({jsonstate, pagestate, settingdoctor, addressState}) => {
     const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -264,45 +273,9 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
           <Text style={useStyles.qdTitle}>QuickDoc</Text>
           <Text style={useStyles.qdDesc}>Information on local doctors at your fingertips.</Text>
         </View>
+        <Text style={useStyles.addressHeader}>Doctors near: {addressState.address}</Text>
+        <Divider/>
         <Button text="Filter" onPress={() => this.openDrawer()}/>
-        {/* <MultiSelect
-            items={specialties_list}
-            uniqueKey="id"
-            onSelectedItemsChange={handleSpecChange}
-            selectedItems={spec}
-            selectText="Pick Specialties"
-            searchInputPlaceholderText="Search Items..."
-            tagRemoveIconColor="#CCC"
-            tagBorderColor="#CCC"
-            tagTextColor="#CCC"
-            displayKey="name"
-            selectedItemTextColor="#CCC"
-            selectedItemIconColor="#CCC"
-            itemTextColor="#000"
-            searchInputStyle={{ color: '#CCC' }}
-            submitButtonColor="#CCC"
-            submitButtonText="Submit"
-        />
-
-        <MultiSelect
-            items={insurances_list}
-            uniqueKey="id"
-            onSelectedItemsChange={handleInsuChange}
-            selectedItems={insu}
-            selectText="Pick Insurances"
-            searchInputPlaceholderText="Search Items..."
-            tagRemoveIconColor="#CCC"
-            tagBorderColor="#CCC"
-            tagTextColor="#CCC"
-            displayKey="name"
-            selectedItemTextColor="#CCC"
-            selectedItemIconColor="#CCC"
-            itemTextColor="#000"
-            searchInputStyle={{ color: '#CCC' }}
-            submitButtonColor="#CCC"
-            submitButtonText="Submit"
-        /> */}
-
         <DoctorCards doctorData={doctorSelector()} settingdoctor = {settingdoctor} pagestate ={pagestate} />
         <Button text="Go Back" color="blue" onPress={function(event){pagestate.setpage(1)}}></Button>
         </ScrollView>

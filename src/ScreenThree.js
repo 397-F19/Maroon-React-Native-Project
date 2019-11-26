@@ -2,6 +2,8 @@ import React, { Component, useState, useEffect} from 'react';
 import {Segment, ScrollView, Button, StyleSheet, Text, View ,Image} from 'react-native';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
 import Divider from 'react-native-divider';
+import db from './db.js';
+
 
 const styles = StyleSheet.create({
     container: {
@@ -108,10 +110,16 @@ var insuranceSet = new Set();
 settingdoctor.doc.insurances.map(insurance=>insuranceSet.add(insurance.insurance_plan.name));
 var array_practices = Array.from(practicesSet)
 var array_insurances = Array.from(insuranceSet)
-var a = [1,2,3,4]
-const test = a.map((num) =>
-  <Text key = {num}>hahaha</Text>
-  )
+
+const docname = settingdoctor.doc.profile.first_name + " " + settingdoctor.doc.profile.last_name;
+if (Object.keys(reviewstate.review).includes(docname)){
+  var rating = reviewstate.review[docname]["totalrating"]/reviewstate.review[docname]["totalcount"]
+  console.log(rating)
+}
+else{
+  console.log("no rating now")
+}
+
 return (
   <View style={styles.container}>
     <View style={styles.head}>
@@ -123,7 +131,7 @@ return (
     <CardImage resizeMode={'contain'} style={docInfoStyles.cardImage}
       source={{uri:settingdoctor.doc.profile.image_url}} 
     />
-    <Text style={docInfoStyles.cardName}>Dr. {settingdoctor.doc.profile.first_name + " " + settingdoctor.doc.profile.last_name}</Text>
+    <Text style={docInfoStyles.cardName}>Dr. {docname}</Text>
   </View>
 
     <Text style={docInfoStyles.secTitle}>Biography</Text>

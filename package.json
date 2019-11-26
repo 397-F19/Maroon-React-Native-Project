@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "expo": "^35.0.0",
+    "firebase": "^7.5.0",
     "native-base": "^2.13.8",
     "react": "16.8.3",
     "react-dom": "16.8.3",
@@ -39,5 +40,19 @@
   "jest": {
     "preset": "react-native"
   },
-  "private": true
+  "private": true,
+  "name": "maroon-react-native-project",
+  "description": "Team Maroon5's actual react native application Sandra, Arianna, Jordan, Panyang, Owen",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://qipanyang@github.com/397-F19/Maroon-React-Native-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/397-F19/Maroon-React-Native-Project/issues"
+  },
+  "homepage": "https://github.com/397-F19/Maroon-React-Native-Project#readme"
 }
