@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import { Platform, ScrollView, StyleSheet, View, TouchableWithoutFeedback, Dimensions, Image  } from 'react-native';
 import { Button, Drawer, Avatar } from 'react-native-material-ui';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
@@ -7,6 +8,16 @@ import { Block, Text, theme } from "galio-framework";
  import { Dropdown } from 'react-native-material-dropdown';
 
  const { width } = Dimensions.get('screen');
+=======
+import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, Avatar } from 'react-native-material-ui';
+import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
+import ModalDropdown from 'react-native-modal-dropdown';
+import MultiSelect from 'react-native-multiple-select';
+import Divider from 'react-native-divider';
+import { Drawer } from 'native-base';
+
+>>>>>>> origin/screen3
 
 const useStyles = StyleSheet.create({
     qdTitle: {
@@ -16,17 +27,34 @@ const useStyles = StyleSheet.create({
         paddingBottom: 6,
         color: '#FFFFFF'
       },
-      qdDesc: {
+    qdDesc: {
         fontSize: 16,
         textAlign: 'center',
         fontStyle: 'italic',
         margin: 5,
         color: '#FFFFFF',
         paddingBottom: 6,
-      },
-      head: {
+    },
+    head: {
         backgroundColor: 'rgba(87, 137, 255, 100)',
-      }
+    },
+    drawer: {
+        flex: 1,
+        backgroundColor: '#FFFFFF',
+        paddingTop: 30
+    },
+    addressHeader: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#68686e',
+        marginTop: 10,
+        marginLeft: 7
+    },
+    filter: {
+        paddingLeft: 10,
+        paddingRight: 10,
+        marginTop: 20
+    }
   });
 
 const classes = StyleSheet.create(theme => ({
@@ -85,17 +113,15 @@ const classes = StyleSheet.create(theme => ({
     },
   });
 
-const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
+
+const ScreenTwo = ({jsonstate, pagestate, settingdoctor, addressState}) => {
     const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
       setOpen(true);
     };
     doctorData = jsonstate.json
-    // console.log(doctorData)
-    // const switch_page = ({num}) => {
-    //     pagestate.setpage(1)
-    //   }
     const [spec, setSpec] = React.useState([]);
+<<<<<<< HEAD
     const handleSpecChange = (value,index,data) => {
         setSpec([value]);
     };
@@ -103,6 +129,15 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
     const [insu, setInsu] = React.useState([]);
     const handleInsuChange = (value,index,data) => {
         setInsu([value]);
+=======
+    const handleSpecChange = (index,value) => {
+        setSpec(index);
+    };
+
+    const [insu, setInsu] = React.useState([]);
+    const handleInsuChange = (index, value) => {
+        setInsu(index);
+>>>>>>> origin/screen3
     };
     const getSpecList =() =>{
         var specialties = doctorData.map(doctor=>(doctor.specialties));
@@ -111,8 +146,14 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
             specialties[i].map(specialty=>(specialtiesSet.add(specialty.name)));
         }
     
+        var specialties_kypair = [];
+        var specialties_list =  Array.from(specialtiesSet);
+        specialties_list.forEach(function(specialty){
+            specialties_kypair.push({id:specialty, name:specialty})
+        })
+
+        return specialties_kypair
         
-        return Array.from(specialtiesSet)
     }
     const getInsuList =() =>{
         var insurances= doctorData.map(doctor=>(doctor.insurances));
@@ -120,11 +161,16 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
         for (var i=0; i<insurances.length;i++){
             insurances[i].map(insurance=>(insuranceSet.add(insurance.insurance_plan.name)));
         }
-        
-        return Array.from(insuranceSet)
+        var insurances_kvpair = [];
+        var insurances_list = Array.from(insuranceSet);
+        insurances_list.forEach(function(insurance){
+            insurances_kvpair.push({id:insurance, name:insurance})
+        })
+
+        return insurances_kvpair
     }
     const specialties_list = getSpecList()
-    const insurance_list = getInsuList()
+    const insurances_list = getInsuList()
 
 
     const matchInsu = (doctor) =>{
@@ -183,7 +229,7 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
         ))
         )
     }
-
+    
     if (doctorData.length === 0){
         return (
             <View>
@@ -191,13 +237,64 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
             </View>
         )
     }
+
+    const SideBar = () => {
+        return(
+            <View style={useStyles.drawer}>
+            <MultiSelect
+            styleDropdownMenu={useStyles.filter}
+            items={specialties_list}
+            uniqueKey="id"
+            onSelectedItemsChange={handleSpecChange}
+            selectedItems={spec}
+            selectText="Pick Specialties"
+            searchInputPlaceholderText="Search Items..."
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#CCC"
+            displayKey="name"
+            selectedItemTextColor="#CCC"
+            selectedItemIconColor="#CCC"
+            itemTextColor="#000"
+            searchInputStyle={{ color: '#CCC' }}
+            submitButtonColor="#CCC"
+            submitButtonText="Submit"
+        />
+    
+            <MultiSelect
+                styleDropdownMenu={useStyles.filter}
+                items={insurances_list}
+                uniqueKey="id"
+                onSelectedItemsChange={handleInsuChange}
+                selectedItems={insu}
+                selectText="Pick Insurances"
+                searchInputPlaceholderText="Search Items..."
+                tagRemoveIconColor="#CCC"
+                tagBorderColor="#CCC"
+                tagTextColor="#CCC"
+                displayKey="name"
+                selectedItemTextColor="#CCC"
+                selectedItemIconColor="#CCC"
+                itemTextColor="#000"
+                searchInputStyle={{ color: '#CCC' }}
+                submitButtonColor="#CCC"
+                submitButtonText="Submit"
+        />
+            </View>
+        );
+    }
+
+    openDrawer = () => { this.drawer._root.open() };
+    closeDrawer = () => { this.drawer._root.close() };
+
     return(
+        <Drawer ref={(ref) => { this.drawer = ref; }} content={<SideBar navigator={this.navigator} />} onClose={() => this.closeDrawer()} >
         <ScrollView>
         <View style={useStyles.head}>
           <Text style={useStyles.qdTitle}>QuickDoc</Text>
           <Text style={useStyles.qdDesc}>Information on local doctors at your fingertips.</Text>
-          {/* <Button text="Filter" onPress={handleDrawerOpen}/> */}
         </View>
+<<<<<<< HEAD
         <Dropdown
             label="Select Specialty"
             data={specialties_list.map(speci=>({value:speci}))}
@@ -211,9 +308,15 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor}) => {
             onChangeText={handleInsuChange}
           />
 
+=======
+        <Text style={useStyles.addressHeader}>Doctors near: {addressState.address}</Text>
+        <Divider/>
+        <Button text="Filter" onPress={() => this.openDrawer()}/>
+>>>>>>> origin/screen3
         <DoctorCards doctorData={doctorSelector()} settingdoctor = {settingdoctor} pagestate ={pagestate} />
         <Button text="Go Back" color="blue" onPress={function(event){pagestate.setpage(1)}}></Button>
         </ScrollView>
+        </Drawer>
     );
 
 }
