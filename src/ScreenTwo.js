@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import { Platform, ScrollView, StyleSheet, View, TouchableWithoutFeedback, Dimensions, Image  } from 'react-native';
 import { Button, Drawer, Avatar } from 'react-native-material-ui';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
 import ModalDropdown from 'react-native-modal-dropdown';
-import { Block, Text, theme } from "galio-framework";
+import Divider from 'react-native-divider';
+
  import { Dropdown } from 'react-native-material-dropdown';
 
  const { width } = Dimensions.get('screen');
-=======
 import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Avatar } from 'react-native-material-ui';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
@@ -17,7 +16,6 @@ import MultiSelect from 'react-native-multiple-select';
 import Divider from 'react-native-divider';
 import { Drawer } from 'native-base';
 
->>>>>>> origin/screen3
 
 const useStyles = StyleSheet.create({
     qdTitle: {
@@ -43,6 +41,7 @@ const useStyles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         paddingTop: 30
     },
+
     addressHeader: {
         fontSize: 20,
         fontWeight: 'bold',
@@ -110,7 +109,7 @@ const classes = StyleSheet.create(theme => ({
       paddingLeft: 80,
       paddingRight: 80,
       marginTop: 10,
-    },
+    }
   });
 
 
@@ -121,7 +120,6 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor, addressState}) => {
     };
     doctorData = jsonstate.json
     const [spec, setSpec] = React.useState([]);
-<<<<<<< HEAD
     const handleSpecChange = (value,index,data) => {
         setSpec([value]);
     };
@@ -129,15 +127,6 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor, addressState}) => {
     const [insu, setInsu] = React.useState([]);
     const handleInsuChange = (value,index,data) => {
         setInsu([value]);
-=======
-    const handleSpecChange = (index,value) => {
-        setSpec(index);
-    };
-
-    const [insu, setInsu] = React.useState([]);
-    const handleInsuChange = (index, value) => {
-        setInsu(index);
->>>>>>> origin/screen3
     };
     const getSpecList =() =>{
         var specialties = doctorData.map(doctor=>(doctor.specialties));
@@ -294,25 +283,9 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor, addressState}) => {
           <Text style={useStyles.qdTitle}>QuickDoc</Text>
           <Text style={useStyles.qdDesc}>Information on local doctors at your fingertips.</Text>
         </View>
-<<<<<<< HEAD
-        <Dropdown
-            label="Select Specialty"
-            data={specialties_list.map(speci=>({value:speci}))}
-            style={{color:'#000000', marginLeft:10, fontSize:20, marginTop: 10}}
-            onChangeText={handleSpecChange}
-          />
-        <Dropdown
-            label="Select Insurance"
-            data={insurance_list.map(insur=>({value:insur}))}
-            style={{color:'#000000', marginLeft:10,fontSize:20, marginTop: 10}}
-            onChangeText={handleInsuChange}
-          />
-
-=======
         <Text style={useStyles.addressHeader}>Doctors near: {addressState.address}</Text>
         <Divider/>
         <Button text="Filter" onPress={() => this.openDrawer()}/>
->>>>>>> origin/screen3
         <DoctorCards doctorData={doctorSelector()} settingdoctor = {settingdoctor} pagestate ={pagestate} />
         <Button text="Go Back" color="blue" onPress={function(event){pagestate.setpage(1)}}></Button>
         </ScrollView>
