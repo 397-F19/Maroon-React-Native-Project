@@ -9,12 +9,9 @@
   },
   "dependencies": {
     "expo": "^35.0.0",
-<<<<<<< HEAD
     "galio-framework": "^0.6.3",
-=======
     "firebase": "^7.5.0",
     "native-base": "^2.13.8",
->>>>>>> origin/screen3
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "0.59.10",

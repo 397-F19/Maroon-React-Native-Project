@@ -1,13 +1,4 @@
 import React, { Component } from 'react';
-import { Platform, ScrollView, StyleSheet, View, TouchableWithoutFeedback, Dimensions, Image  } from 'react-native';
-import { Button, Drawer, Avatar } from 'react-native-material-ui';
-import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
-import ModalDropdown from 'react-native-modal-dropdown';
-import Divider from 'react-native-divider';
-
- import { Dropdown } from 'react-native-material-dropdown';
-
- const { width } = Dimensions.get('screen');
 import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Avatar } from 'react-native-material-ui';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
@@ -41,7 +32,6 @@ const useStyles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         paddingTop: 30
     },
-
     addressHeader: {
         fontSize: 20,
         fontWeight: 'bold',
@@ -120,13 +110,13 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor, addressState}) => {
     };
     doctorData = jsonstate.json
     const [spec, setSpec] = React.useState([]);
-    const handleSpecChange = (value,index,data) => {
-        setSpec([value]);
+    const handleSpecChange = (index,data) => {
+        setSpec(index);
     };
 
     const [insu, setInsu] = React.useState([]);
-    const handleInsuChange = (value,index,data) => {
-        setInsu([value]);
+    const handleInsuChange = (index,data) => {
+        setInsu(index);
     };
     const getSpecList =() =>{
         var specialties = doctorData.map(doctor=>(doctor.specialties));
