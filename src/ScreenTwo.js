@@ -9,7 +9,6 @@ import { Drawer } from 'native-base';
 import StarRating from 'react-native-star-rating';
 
 
-
 const useStyles = StyleSheet.create({
     qdTitle: {
         fontSize: 40,
@@ -35,7 +34,7 @@ const useStyles = StyleSheet.create({
         paddingTop: 30
     },
     addressHeader: {
-        fontSize: 20,
+        fontSize: 25,
         fontWeight: 'bold',
         color: '#68686e',
         marginTop: 10,
@@ -45,7 +44,13 @@ const useStyles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         marginTop: 20
-    }
+    },
+    // backButton: {
+    //     style: {
+    //     width: 40,
+    //     textAlign: 'center'
+    //     }
+    // }
   });
 
 const classes = StyleSheet.create(theme => ({
@@ -70,6 +75,8 @@ const classes = StyleSheet.create(theme => ({
       flexDirection: 'column',
     }
   }));
+
+
   const cardStyling = StyleSheet.create({
     cardContainer: {
       margin: 30,
@@ -284,9 +291,13 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor, addressState, reviewsta
         </View>
         <Text style={useStyles.addressHeader}>Doctors near: {addressState.address}</Text>
         <Divider/>
-        <Button text="Filter" onPress={() => this.openDrawer()}/>
+        <Button raised primary text="Filter" onPress={() => this.openDrawer()} 
+                style={{container: {backgroundColor: 'rgba(87, 137, 255, 100)', height: 50, marginLeft: 30, marginRight: 30},
+                        text: {fontSize: 15}}}/>
         <DoctorCards doctorData={doctorSelector()} settingdoctor = {settingdoctor} pagestate ={pagestate} />
-        <Button text="Go Back" color="blue" onPress={function(event){pagestate.setpage(1)}}></Button>
+        <Button raised text="Go Back" color="blue" onPress={function(event){pagestate.setpage(1)}}
+                style={{container: {backgroundColor: 'rgba(87, 137, 255, 100)', height: 50, marginLeft: 90, marginRight: 90, marginBottom: 10},
+                        text: {color: '#FFFFFF', fontSize: 15}}}/>
         </ScrollView>
         </Drawer>
     );
