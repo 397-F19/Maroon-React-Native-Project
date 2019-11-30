@@ -7,6 +7,7 @@ import Dialog, { DialogFooter, DialogButton, DialogContent } from 'react-native-
 import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
 import db from './db.js';
 import ModalDropdown from 'react-native-modal-dropdown';
+import { Dropdown } from 'react-native-material-dropdown';
 
 
 const styles = StyleSheet.create({
@@ -172,7 +173,7 @@ return (
     <Divider/>
     <Text style={docInfoStyles.secTitle}>Insurance Plans Taken</Text>
     {console.log(array_insurances)}
-    <ModalDropdown width={200} style={{color:'#F5F5F5',marginLeft:10,fontSize:20, marginTop: 10}} options={array_insurances}></ModalDropdown>
+    <Dropdown value={insurance} onChangeText={(value)=>{setinsurance(value)}} data={array_insurances.map(ins=>({value:ins}))}></Dropdown>
     <Text style={docInfoStyles.secEnd}/>
 
     <Dialog
