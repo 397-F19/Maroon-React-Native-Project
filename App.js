@@ -1,38 +1,46 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect} from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
+import ScreenOne from './src/ScreenOne.js';
+import ScreenTwo from './src/ScreenTwo.js';
+import ScreenThree from './src/ScreenThree.js';
+import db from './src/db.js';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
 });
 
-export default class App extends Component {
-  render() {
+const App = () => {
+  const [json, setjson] = useState([])
+  const [page, setpage] = useState(1)
+  const [doc, setdoc] = useState('');
+  const [review, setreview] = React.useState({});
+  const [address, setaddress] = useState('');
+
+  useEffect(() => {
+    const handleData = snap => {
+      if (snap.val()) setreview(snap.val());
+    }
+    db.on('value', handleData, error => alert(error));
+    return () => { db.off('value', handleData); };
+  }, []);
+
+  if (page == 1)
+  {
+    return(
+      <ScreenOne jsonstate={{json, setjson}} pagestate={{page, setpage}} addressState={{address, setaddress}}/>
+    )
+  }
+  else if (page == 2){
+    return(
+      <ScreenTwo jsonstate={{json, setjson}} pagestate={{page, setpage}} settingdoctor={{doc,setdoc}} addressState={{address, setaddress}} reviewstate = {{review, setreview}}/>
+    )
+  }
+  else{
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
-    );
+      <ScreenThree pagestate={{page,setpage}} settingdoctor={{doc,setdoc}} reviewstate = {{review, setreview}}/>
+    )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+export default App;

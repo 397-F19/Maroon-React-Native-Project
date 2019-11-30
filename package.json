@@ -9,13 +9,29 @@
   },
   "dependencies": {
     "expo": "^35.0.0",
+    "firebase": "^7.5.0",
+    "galio-framework": "^0.6.3",
+    "native-base": "^2.13.8",
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "0.59.10",
+    "react-native-divider": "^1.0.3",
+    "react-native-drawer": "^2.5.1",
     "react-native-gesture-handler": "~1.4.1",
+    "react-native-google-places-autocomplete": "^1.3.9",
+    "react-native-material-cards": "^1.0.9",
+    "react-native-material-dropdown": "^0.11.1",
+    "react-native-material-textfield": "^0.16.1",
+    "react-native-material-ui": "^1.30.1",
+    "react-native-modal-dropdown": "^0.7.0",
+    "react-native-multiple-select": "^0.5.5",
+    "react-native-popup-dialog": "^0.18.3",
     "react-native-reanimated": "~1.3.0",
     "react-native-screens": "1.0.0-alpha.23",
+    "react-native-side-menu": "^1.1.3",
+    "react-native-star-rating": "^1.1.0",
     "react-native-unimodules": "0.6.0",
+    "react-native-vector-icons": "^6.6.0",
     "react-native-web": "^0.11.7"
   },
   "devDependencies": {
@@ -29,5 +45,19 @@
   "jest": {
     "preset": "react-native"
   },
-  "private": true
+  "private": true,
+  "name": "maroon-react-native-project",
+  "description": "Team Maroon5's actual react native application Sandra, Arianna, Jordan, Panyang, Owen",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://qipanyang@github.com/397-F19/Maroon-React-Native-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/397-F19/Maroon-React-Native-Project/issues"
+  },
+  "homepage": "https://github.com/397-F19/Maroon-React-Native-Project#readme"
 }

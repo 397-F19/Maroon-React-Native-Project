@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19002,
   "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://84-gdb.anonymous.maroon-react-native-project.exp.direct",
+  "packagerNgrokUrl": "https://packager.84-gdb.anonymous.maroon-react-native-project.exp.direct",
+  "ngrokPid": 9200,
+  "devToolsPort": 19002,
   "packagerPort": 19001,
-  "packagerPid": 6380,
-  "expoServerNgrokUrl": "https://zh-xqv.anonymous.maroon-react-native-project.exp.direct",
-  "packagerNgrokUrl": "https://packager.zh-xqv.anonymous.maroon-react-native-project.exp.direct",
-  "ngrokPid": 25692
+  "packagerPid": 19828
 }
