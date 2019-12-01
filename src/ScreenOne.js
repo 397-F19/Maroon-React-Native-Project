@@ -103,7 +103,9 @@ export default ScreenOne = ({jsonstate, pagestate, addressState}) => {
         </View>
           <Text style={styles.instructions}>Please enter your location of interest to get started.</Text>
           <GooglePlacesInput jsonstate={jsonstate} addressState={addressState}/>
-          <Button style={{ text: styles.button}} text="Submit" onPress={switch_page}/>
+          <Button text="Submit" onPress={switch_page} 
+                  style={{container: {backgroundColor: 'rgba(87, 137, 255, 100)', height: 50},
+                        text: {fontSize: 20, color: '#FFFFFF'}}}/>
         </View>
       );
 }

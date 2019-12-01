@@ -6,6 +6,8 @@ import StarRating from 'react-native-star-rating';
 import Dialog, { DialogFooter, DialogButton, DialogContent } from 'react-native-popup-dialog';
 import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
 import db from './db.js';
+import ModalDropdown from 'react-native-modal-dropdown';
+import { Dropdown } from 'react-native-material-dropdown';
 
 
 const styles = StyleSheet.create({
@@ -110,6 +112,7 @@ const ScreenThree = ({pagestate,settingdoctor,reviewstate}) => {
   const [ratingval, setratingval] = React.useState(0);
   const [reviewval, setreviewval] = React.useState('');
   const [reviewcomment, setreviewcomment] = React.useState([]);
+  const [insurance,setinsurance] = React.useState('Scroll to find Insurance Plan')
   const ratingChanged = (rating) => {
     setratingval(rating);
   }
@@ -125,12 +128,13 @@ const ScreenThree = ({pagestate,settingdoctor,reviewstate}) => {
     setOpenrating(false);
   }
 
+
 var practicesSet = new Set();
 settingdoctor.doc.practices.map(practices=>practicesSet.add(practices.name));
 var insuranceSet = new Set();
 settingdoctor.doc.insurances.map(insurance=>insuranceSet.add(insurance.insurance_plan.name));
 var array_practices = Array.from(practicesSet)
-var array_insurances = Array.from(insuranceSet)
+var array_insurances = Array.from(insuranceSet).sort()
 
 const getReviews = (docname) =>{
   var docReviews = [];
@@ -168,11 +172,8 @@ return (
     <Text style={docInfoStyles.secEnd}/>
     <Divider/>
     <Text style={docInfoStyles.secTitle}>Insurance Plans Taken</Text>
-    {array_insurances.map(function(insurance)
-    {
-      return (<Text style={docInfoStyles.secContent} key={insurance}>{insurance}</Text>)
-    }
-    )}
+    {console.log(array_insurances)}
+    <Dropdown value={insurance} onChangeText={(value)=>{setinsurance(value)}} data={array_insurances.map(ins=>({value:ins}))}></Dropdown>
     <Text style={docInfoStyles.secEnd}/>
 
     <Dialog
