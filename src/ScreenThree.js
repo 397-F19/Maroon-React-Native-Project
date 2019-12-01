@@ -198,7 +198,7 @@ return (
         />
         <DialogButton
           text="SUBMIT"
-          onPress={() => {submitrating();setOpenrating(false);}}
+          onPress={() => {submitrating();setOpenrating(false);setratingval(0);setreviewval('')}}
         />
       </DialogFooter>
     }

@@ -93,7 +93,14 @@ const styles = StyleSheet.create({
   
 export default ScreenOne = ({jsonstate, pagestate, addressState}) => {
   const switch_page = () => {
-    pagestate.setpage(2)
+    if (jsonstate.json.length == 0){
+      return
+    }
+    else{
+      pagestate.setpage(2)
+    }
+
+    
   }
       return(
         <View style={styles.container}>
