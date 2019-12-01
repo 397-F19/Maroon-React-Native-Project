@@ -108,7 +108,14 @@ const classes = StyleSheet.create(theme => ({
       paddingLeft: 80,
       paddingRight: 80,
       marginTop: 10,
-    }
+    },
+    norating: {
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+        fontSize: 14,
+        textAlign: 'center'
+    },
   });
 
 
@@ -216,7 +223,7 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor, addressState, reviewsta
             <Text style={cardStyling.cardName}>Dr. {getname(doctor)}</Text>
             <CardContent>
             {
-                Object.keys(reviewstate.review).includes(getname(doctor)) ? <StarRating  rating={reviewstate.review[getname(doctor)]["totalrating"]/reviewstate.review[getname(doctor)]["totalcount"]} /> : <Text> No rating </Text>
+                Object.keys(reviewstate.review).includes(getname(doctor)) ? <StarRating  rating={reviewstate.review[getname(doctor)]["totalrating"]/reviewstate.review[getname(doctor)]["totalcount"]} /> : <Text style={cardStyling.norating}> No rating </Text>
             }
             </CardContent>
             <CardButton title="View Doctor Bio" color="white" resizeMode={'stretch'} style={cardStyling.moreButton} onPress={function(event){pagestate.setpage(3);settingdoctor.setdoc(doctor);}}></CardButton>

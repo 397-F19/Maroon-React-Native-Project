@@ -45,6 +45,10 @@ const styles = StyleSheet.create({
       fontSize: 20,
       color: '#455680',
     },
+    reviewDialog: {
+      height: 40,
+      marginTop: 100,
+    },
   });
 
 const docInfoStyles = StyleSheet.create({
@@ -68,6 +72,13 @@ const docInfoStyles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     padding: 6,
+    textAlign: 'center'
+  },
+  norating: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    fontSize: 14,
     textAlign: 'center'
   },
   secTitle: {
@@ -143,6 +154,7 @@ const getReviews = (docname) =>{
   }
   return docReviews;  
 }
+const docReviews = getReviews(docname);
 
 return (
   <View style={styles.container}>
@@ -157,7 +169,7 @@ return (
     />
     <Text style={docInfoStyles.cardName}>Dr. {docname}</Text>
     {
-      Object.keys(reviewstate.review).includes(docname) ? <StarRating  rating={reviewstate.review[docname]["totalrating"]/reviewstate.review[docname]["totalcount"]} /> : <Text> No rating </Text>
+      Object.keys(reviewstate.review).includes(docname) ? <StarRating  rating={reviewstate.review[docname]["totalrating"]/reviewstate.review[docname]["totalcount"]} /> : <Text style={docInfoStyles.norating}> No rating </Text>
     }
   </View>
 
@@ -203,21 +215,31 @@ return (
     </DialogContent>
   </Dialog>
 
-  <Dialog visible={openreview}>
-    <DialogContent>
-    {getReviews(docname).map((review, i)=>
-    (<View key = {i}>
-    <Text >Review {i + 1}:  {review.review}</Text>
-     <Divider/>
-    </View>
-    ))}
-    </DialogContent>
+  <Dialog visible={openreview} height={0.5} width={0.5}
+  footer={
     <DialogFooter>
+    <DialogButton
+          text="OK"
+          onPress={() => {setOpenreview(false)}}
+        />
         <DialogButton
           text="BACK"
           onPress={() => {setOpenreview(false)}}
         />
       </DialogFooter>
+  }>
+    <ScrollView>
+    <DialogContent>
+      
+    {docReviews.length==0 ? <Text style = {docInfoStyles.cardName}>No review</Text> : docReviews.map((review, i)=>
+    (<View key = {i}>
+    <Text >Review {i + 1}:  {review.review}</Text>
+     <Divider/>
+    </View>
+    ))}
+
+    </DialogContent>
+    </ScrollView>
   </Dialog>
 
   <Button
