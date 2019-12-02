@@ -302,7 +302,7 @@ const ScreenTwo = ({jsonstate, pagestate, settingdoctor, addressState, reviewsta
                 style={{container: {backgroundColor: 'rgba(87, 137, 255, 100)', height: 50, marginLeft: 30, marginRight: 30},
                         text: {fontSize: 15}}}/>
         <DoctorCards doctorData={doctorSelector()} settingdoctor = {settingdoctor} pagestate ={pagestate} />
-        <Button raised text="Go Back" color="blue" onPress={function(event){jsonstate.setjson([]);pagestate.setpage(1);}}
+        <Button raised text="Back" color="blue" onPress={function(event){jsonstate.setjson([]);pagestate.setpage(1);}}
                 style={{container: {backgroundColor: 'rgba(87, 137, 255, 100)', height: 50, marginLeft: 90, marginRight: 90, marginBottom: 10},
                         text: {color: '#FFFFFF', fontSize: 15}}}/>
         </ScrollView>
