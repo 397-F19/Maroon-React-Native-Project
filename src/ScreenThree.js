@@ -217,15 +217,12 @@ return (
 
   <Dialog visible={openreview} height={0.5} width={0.5}
   footer={
-    <DialogFooter>
-    <DialogButton
+    <DialogFooter children={[
+      <DialogButton
           text="OK"
           onPress={() => {setOpenreview(false)}}
-        />
-        <DialogButton
-          text="BACK"
-          onPress={() => {setOpenreview(false)}}
-        />
+        />, <View/>] //View is a dummy react element here
+    }>
       </DialogFooter>
   }>
     <ScrollView>
