@@ -184,7 +184,6 @@ return (
     <Text style={docInfoStyles.secEnd}/>
     <Divider/>
     <Text style={docInfoStyles.secTitle}>Insurance Plans Taken</Text>
-    {console.log(array_insurances)}
     <Dropdown value={insurance} onChangeText={(value)=>{setinsurance(value)}} data={array_insurances.map(ins=>({value:ins}))}></Dropdown>
     <Text style={docInfoStyles.secEnd}/>
 
@@ -217,15 +216,12 @@ return (
 
   <Dialog visible={openreview} height={0.5} width={0.5}
   footer={
-    <DialogFooter>
-    <DialogButton
+    <DialogFooter children={[
+      <DialogButton
           text="OK"
           onPress={() => {setOpenreview(false)}}
-        />
-        <DialogButton
-          text="BACK"
-          onPress={() => {setOpenreview(false)}}
-        />
+        />, <View/>] //View is a dummy react element here
+    }>
       </DialogFooter>
   }>
     <ScrollView>
@@ -233,6 +229,7 @@ return (
       
     {docReviews.length==0 ? <Text style = {docInfoStyles.cardName}>No review</Text> : docReviews.map((review, i)=>
     (<View key = {i}>
+    <StarRating rating = {review.rating} starSize={20}/>
     <Text >Review {i + 1}:  {review.review}</Text>
      <Divider/>
     </View>
