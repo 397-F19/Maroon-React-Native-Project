@@ -1,1 +1,9 @@
-{}
+{
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://4w-gv7.qipanyang.maroon-react-native-project.exp.direct",
+  "packagerNgrokUrl": "https://packager.4w-gv7.qipanyang.maroon-react-native-project.exp.direct",
+  "ngrokPid": 6430,
+  "devToolsPort": 19002,
+  "packagerPort": 19006,
+  "packagerPid": 6408
+}

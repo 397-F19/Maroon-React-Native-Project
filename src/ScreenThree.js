@@ -3,7 +3,7 @@ import {Segment, ScrollView, Button, StyleSheet, Text, View ,Image} from 'react-
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards';
 import Divider from 'react-native-divider';
 import StarRating from 'react-native-star-rating';
-import Dialog, { DialogFooter, DialogButton, DialogContent } from 'react-native-popup-dialog';
+import Dialog, { DialogFooter, DialogButton, DialogContent, DialogTitle } from 'react-native-popup-dialog';
 import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
 import db from './db.js';
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -189,6 +189,7 @@ return (
 
     <Dialog
     visible={openrating}
+    dialogTitle={<DialogTitle title="Please rate the doctor" />}
     footer={
       <DialogFooter>
         <DialogButton
@@ -215,6 +216,7 @@ return (
   </Dialog>
 
   <Dialog visible={openreview} height={0.5} width={0.5}
+  dialogTitle={<DialogTitle title="Reviews" />}
   footer={
     <DialogFooter children={[
       <DialogButton
@@ -229,8 +231,9 @@ return (
       
     {docReviews.length==0 ? <Text style = {docInfoStyles.cardName}>No review</Text> : docReviews.map((review, i)=>
     (<View key = {i}>
+      <Text>Review {i + 1}:</Text>
     <StarRating rating = {review.rating} starSize={20}/>
-    <Text >Review {i + 1}:  {review.review}</Text>
+    <Text >  {review.review}</Text>
      <Divider/>
     </View>
     ))}

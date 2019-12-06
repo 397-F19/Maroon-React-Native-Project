@@ -2,13 +2,15 @@ import React, { Component, useState, useEffect } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { Button } from 'react-native-material-ui';
+import response from "./exampleData.json"
 
 const GooglePlacesInput = ({jsonstate, addressState}) => {
-    
+    console.log
     const fetchJSON = async (lat,long) => {
-      const url = 'https://api.betterdoctor.com/2016-03-01/doctors?location='+ lat + ',' + long + ',100&skip=2&limit=10&user_key=563664e07e2616820d97ae3ea681ef78'
-      const response = await fetch(url).then((response)=> response.json()).then((response)=> response.data);
-      jsonstate.setjson(response);
+      // const url = "./exampleData.json"
+      // // const url = 'https://api.betterdoctor.com/2016-03-01/doctors?location='+ lat + ',' + long + ',100&skip=2&limit=10&user_key=563664e07e2616820d97ae3ea681ef78'
+      // const response = await fetch(url).then((response)=> response.json()).then((response)=> response.data);
+      jsonstate.setjson(response.data);
     }
       
       return (
